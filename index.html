@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Script Hub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>⚡ Script Hub</h1>
+  <p>Verified & mobile-friendly scripts</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>🌊 Tsunami Script</h2>
+    <p>Status: <span class="working">WORKING</span></p>
+    <textarea readonly>
+loadstring(game:HttpGet("https://raw.githubusercontent.com/your/script.lua"))()
+    </textarea>
+    <button onclick="copyScript(this)">📋 Copy Script</button>
+  </div>
+
+  <div class="card">
+    <h2>🔪 MM2 Script</h2>
+    <p>Status: <span class="working">WORKING</span></p>
+    <textarea readonly>
+loadstring(game:HttpGet("https://raw.githubusercontent.com/your/mm2.lua"))()
+    </textarea>
+    <button onclick="copyScript(this)">📋 Copy Script</button>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
