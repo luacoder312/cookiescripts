@@ -111,6 +111,141 @@
 
 <div class="container">
 
+  <!-- WORKING SCRIPT (FIRST) -->
+  <div class="script-box">
+    <div class="script-title">Cookie Scripts Duper</div>
+    <span class="status working">Working</span>
+
+    <pre id="scriptCode">
+loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/Cookiescriptsduper/refs/heads/main/cookiescripts.lua"))()
+    </pre>
+
+    <button onclick="copyScript()">📋 Copy Script</button>
+
+    <div class="stats">
+      👁️ Views: <span id="views">0</span> |
+      📥 Copied: <span id="copies">0</span>
+    </div>
+  </div>
+
+  <!-- PATCHED SCRIPT (SECOND) -->
+  <div class="script-box">
+    <div class="script-title">Escape Tsunami For Brainrot</div>
+    <span class="status patched">Patched / Outdated</span>
+
+    <pre>
+loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/lxdyzhub/refs/heads/main/lxdyzhub.lua"))()
+    </pre>
+
+    <div class="stats">
+      ❌ Script is no longer working
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Cookie Scripts • Educational Purpose
+</footer>
+
+<script>
+  let views = localStorage.getItem("views") || 0;
+  let copies = localStorage.getItem("copies") || 0;
+
+  views++;
+  localStorage.setItem("views", views);
+
+  document.getElementById("views").innerText = views;
+  document.getElementById("copies").innerText = copies;
+
+  function copyScript() {
+    const text = document.getElementById("scriptCode").innerText;
+    navigator.clipboard.writeText(text);
+    copies++;
+    localStorage.setItem("copies", copies);
+    document.getElementById("copies").innerText = copies;
+    alert("Script copied!");
+  }
+</script>
+
+</body>
+</html>      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .script-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .working {
+      background: #1b5e20;
+      color: #8aff8a;
+    }
+
+    .patched {
+      background: #5e1b1b;
+      color: #ff8a8a;
+    }
+
+    pre {
+      background: #0b0b0b;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      background: #ffb703;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.85;
+    }
+
+    .stats {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      color: #777;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🍪 Cookie Scripts Hub</h1>
+  <p>Roblox Scripts • Status Based</p>
+</header>
+
+<div class="container">
+
   <!-- PATCHED SCRIPT -->
   <div class="script-box">
     <div class="script-title">Escape Tsunami For Brainrot</div>
