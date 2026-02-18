@@ -16,25 +16,6 @@ body{
   overflow-x:hidden;
 }
 
-/* PARTICLES */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(2px 2px at 20% 30%,#fff,transparent),
-    radial-gradient(2px 2px at 80% 40%,#fff,transparent),
-    radial-gradient(1px 1px at 50% 70%,#fff,transparent),
-    radial-gradient(1px 1px at 10% 80%,#fff,transparent);
-  opacity:.35;
-  animation:stars 20s linear infinite;
-  pointer-events:none;
-}
-@keyframes stars{
-  from{transform:translateY(0)}
-  to{transform:translateY(-200px)}
-}
-
 .container{
   max-width:420px;
   margin:40px auto;
@@ -73,11 +54,6 @@ h1{
   background:#0f0b22;
   border-radius:14px;
   padding:15px;
-  animation:fade .35s ease;
-}
-@keyframes fade{
-  from{opacity:0;transform:translateY(8px)}
-  to{opacity:1;transform:translateY(0)}
 }
 .title{font-size:20px;margin-bottom:6px}
 .status{font-size:13px;margin-bottom:8px}
@@ -87,9 +63,20 @@ pre{
   background:#05030c;
   padding:12px;
   border-radius:10px;
-  overflow-x:auto;
   font-size:12px;
-  user-select:text;
+  overflow:hidden;
+}
+
+/* LOCKED SCRIPT */
+.pre-locked{
+  filter:blur(7px);
+  pointer-events:none;
+  user-select:none;
+}
+.lock-overlay{
+  text-align:center;
+  margin-top:-45px;
+  font-size:22px;
 }
 
 button{
@@ -181,14 +168,23 @@ function isUnlocked(){
 function render(){
   const s=scripts[current];
   const unlocked=isUnlocked();
+
   content.innerHTML=`
   <div class="card">
     <div class="title">${s.name} 🍪</div>
     <div class="status">🟢 <span>WORKING</span></div>
-    <pre>${s.code}</pre>
-    <button class="${unlocked?'copy':'locked'}" onclick="handleCopy()">
+
+    ${
+      unlocked
+      ? `<pre>${s.code}</pre>`
+      : `<pre class="pre-locked">${s.code}</pre>
+         <div class="lock-overlay">🔒 Locked</div>`
+    }
+
+    <button class="${unlocked?'copy':'locked'}" onclick="handleAction()">
       ${unlocked?'📋 Copy Script':'🔒 Sub to Unlock'}
     </button>
+
     <div class="stats">Copied ${s.copies} times</div>
   </div>`;
 }
@@ -200,7 +196,7 @@ function switchTab(i){
   render();
 }
 
-function handleCopy(){
+function handleAction(){
   if(!isUnlocked()){
     localStorage.setItem("cookie_sub","true");
     window.open("https://www.youtube.com/@cookie_scripts","_blank");
