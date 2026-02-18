@@ -17,10 +17,31 @@ body{
   background:radial-gradient(circle at top,#3b1d6a,#0b0617 70%);
   color:#fff;
   min-height:100vh;
+  overflow-x:hidden;
 }
+
+/* PARTICLES */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(2px 2px at 20% 30%,#fff,transparent),
+    radial-gradient(2px 2px at 80% 40%,#fff,transparent),
+    radial-gradient(1px 1px at 50% 70%,#fff,transparent),
+    radial-gradient(1px 1px at 10% 80%,#fff,transparent);
+  opacity:.35;
+  animation:stars 20s linear infinite;
+}
+@keyframes stars{
+  from{transform:translateY(0)}
+  to{transform:translateY(-200px)}
+}
+
 .container{
   max-width:420px;
-  margin:40px auto;
+  margin:40px auto
+  auto;
   background:rgba(15,10,30,.85);
   border-radius:18px;
   padding:20px;
@@ -34,24 +55,11 @@ h1{
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
-.subtitle{
-  text-align:center;
-  opacity:.85;
-  margin-top:5px;
-}
-.active{
-  text-align:center;
-  margin:10px 0 20px;
-  font-size:14px;
-}
-.pulse{
-  animation:pulse 2s infinite;
-}
-@keyframes pulse{
-  0%{opacity:.6}
-  50%{opacity:1}
-  100%{opacity:.6}
-}
+.subtitle{text-align:center;opacity:.85;margin-top:5px}
+.active{text-align:center;margin:10px 0 20px;font-size:14px}
+.pulse{animation:pulse 2s infinite}
+@keyframes pulse{0%{opacity:.6}50%{opacity:1}100%{opacity:.6}}
+
 .tabs{
   display:flex;
   gap:8px;
@@ -68,25 +76,21 @@ h1{
 .tab.active{
   background:linear-gradient(90deg,#8f4dff,#c77dff);
 }
+
 .card{
   background:#0f0b22;
   border-radius:14px;
   padding:15px;
-  animation:fade .3s ease;
+  animation:fade .35s ease;
 }
 @keyframes fade{
-  from{opacity:0;transform:translateY(6px)}
+  from{opacity:0;transform:translateY(8px)}
   to{opacity:1;transform:translateY(0)}
 }
-.title{
-  font-size:20px;
-  margin-bottom:6px;
-}
-.status{
-  font-size:13px;
-  margin-bottom:8px;
-}
-.status span{color:#6aff8a;}
+.title{font-size:20px;margin-bottom:6px}
+.status{font-size:13px;margin-bottom:8px}
+.status span{color:#6aff8a}
+
 pre{
   background:#05030c;
   padding:12px;
@@ -95,27 +99,36 @@ pre{
   font-size:12px;
   user-select:text;
 }
+
+/* BUTTONS */
 button{
   width:100%;
   margin-top:12px;
   padding:14px;
   border:none;
   border-radius:12px;
-  background:linear-gradient(90deg,#8f4dff,#c77dff);
-  color:#000;
   font-weight:bold;
   font-size:15px;
   cursor:pointer;
+  transition:.25s;
 }
+
+/* COPY */
+button.copy{
+  background:linear-gradient(90deg,#8f4dff,#c77dff);
+  color:#000;
+}
+
+/* SUB TO UNLOCK */
 button.locked{
-  filter:grayscale(1);
+  background:linear-gradient(90deg,#ff2f2f,#ff6b6b);
+  color:#fff;
+  box-shadow:0 0 14px rgba(255,60,60,.7);
 }
-.stats{
-  text-align:center;
-  margin-top:8px;
-  font-size:13px;
-  opacity:.7;
-}
+
+.stats{text-align:center;margin-top:8px;font-size:13px;opacity:.7}
+footer{text-align:center;font-size:12px;opacity:.5;margin-top:18px}
+
 .toast{
   position:fixed;
   bottom:20px;
@@ -128,12 +141,6 @@ button.locked{
   transition:.3s;
 }
 .toast.show{opacity:1}
-footer{
-  text-align:center;
-  font-size:12px;
-  opacity:.5;
-  margin-top:18px;
-}
 </style>
 </head>
 
@@ -151,15 +158,13 @@ footer{
   </div>
 
   <div id="content"></div>
-
   <footer>© Cookie Hub · Educational Purpose</footer>
 </div>
 
 <div id="toast" class="toast">✅ Script Copied</div>
 
 <script>
-const SUB_KEY="cookie_sub_unlock";
-const YT="https://www.youtube.com/@cookie_scripts";
+const unlocked = localStorage.getItem("cookie_sub") === "true";
 
 const scripts=[
 {
@@ -168,12 +173,12 @@ code:`loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/Tra
 copies:2431
 },
 {
-name:"Cookie Token Duper",
+name:"Cookie Script Token Duper",
 code:`loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/Tokenduper/refs/heads/main/Cookiescripts.lua"))()`,
 copies:1892
 },
 {
-name:"Cookie Brainrot Duper",
+name:"Cookie Scripts Duper (ETFB)",
 code:`loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/Cookiescriptsduper/refs/heads/main/cookiescripts.lua"))()`,
 copies:3015
 }
@@ -183,19 +188,14 @@ let current=0;
 const content=document.getElementById("content");
 const toast=document.getElementById("toast");
 
-function isUnlocked(){
-  return localStorage.getItem(SUB_KEY)==="true";
-}
-
 function render(){
   const s=scripts[current];
-  const unlocked=isUnlocked();
   content.innerHTML=`
   <div class="card">
     <div class="title">${s.name} 🍪</div>
     <div class="status">🟢 <span>WORKING</span></div>
-    <pre id="script">${s.code}</pre>
-    <button class="${unlocked?"":"locked"}" onclick="handleCopy()">
+    <pre>${s.code}</pre>
+    <button class="${unlocked?"copy":"locked"}" onclick="handleCopy()">
       ${unlocked?"📋 Copy Script":"🔒 Sub to Unlock"}
     </button>
     <div class="stats">Copied ${s.copies} times</div>
@@ -210,10 +210,10 @@ function switchTab(i){
 }
 
 function handleCopy(){
-  if(!isUnlocked()){
-    window.open(YT,"_blank");
-    localStorage.setItem(SUB_KEY,"true");
-    render();
+  if(!unlocked){
+    localStorage.setItem("cookie_sub","true");
+    window.open("https://www.youtube.com/@cookie_scripts","_blank");
+    location.reload();
     return;
   }
   navigator.clipboard.writeText(scripts[current].code);
