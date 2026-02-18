@@ -8,248 +8,235 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-* {
-  box-sizing: border-box;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
 }
 
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  color: #fff;
-  background: #050505;
-  overflow-x: hidden;
+body{
+  min-height:100vh;
+  background:linear-gradient(120deg,#0b0f2b,#0e0b1e,#050510);
+  overflow-x:hidden;
+  color:#fff;
 }
 
-/* ===== ANIMATED BACKGROUND ===== */
-.bg {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
-  background-size: 400% 400%;
-  animation: gradientMove 18s ease infinite;
+/* Animated particles */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url("https://www.transparenttextures.com/patterns/stardust.png");
+  opacity:.15;
+  animation:moveBg 40s linear infinite;
+  z-index:-1;
 }
 
-.bg::before,
-.bg::after {
-  content: "";
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, #ffb703, transparent 70%);
-  filter: blur(120px);
-  opacity: 0.35;
-  animation: float 20s infinite alternate ease-in-out;
+@keyframes moveBg{
+  from{background-position:0 0;}
+  to{background-position:1000px 1000px;}
 }
 
-.bg::after {
-  background: radial-gradient(circle, #00ffd5, transparent 70%);
-  animation-delay: 5s;
-  top: 60%;
-  left: 60%;
+/* HERO */
+.hero{
+  padding:80px 20px 60px;
+  text-align:center;
 }
 
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+.hero h1{
+  font-size:36px;
+  font-weight:700;
 }
 
-@keyframes float {
-  from { transform: translate(0,0); }
-  to { transform: translate(120px, -120px); }
+.hero h1 span{
+  background:linear-gradient(90deg,#7b6cff,#b983ff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-/* ===== HEADER ===== */
-header {
-  text-align: center;
-  padding: 70px 20px 40px;
+.hero p{
+  margin-top:15px;
+  color:#b5b5ff;
+  font-size:15px;
 }
 
-header h1 {
-  font-size: 40px;
-  color: #ffb703;
-  margin-bottom: 10px;
-  animation: fadeDown 1s ease;
+/* SECTION */
+.section{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
 }
 
-header p {
-  color: #ccc;
-  animation: fadeDown 1.3s ease;
+.section-title{
+  font-size:22px;
+  margin:40px 0 20px;
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
 
-/* ===== CONTAINER ===== */
-.container {
-  max-width: 950px;
-  margin: auto;
-  padding: 20px;
+.section-title::after{
+  content:"";
+  flex:1;
+  height:1px;
+  background:linear-gradient(90deg,#7b6cff,transparent);
 }
 
-/* ===== SCRIPT CARD ===== */
-.script {
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(16px);
-  border-radius: 20px;
-  padding: 24px;
-  margin-bottom: 28px;
-  border: 1px solid rgba(255,255,255,0.12);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.7);
-  animation: fadeUp 0.9s ease;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+/* CARD */
+.card{
+  background:rgba(255,255,255,0.06);
+  border-radius:22px;
+  padding:22px;
+  margin-bottom:25px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 0 40px rgba(123,108,255,.15);
+  transform:translateY(30px);
+  opacity:0;
+  animation:fadeUp .8s ease forwards;
 }
 
-.script:hover {
-  transform: translateY(-10px) scale(1.01);
-  box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+.card:nth-child(2){animation-delay:.1s}
+.card:nth-child(3){animation-delay:.2s}
+
+@keyframes fadeUp{
+  to{
+    transform:translateY(0);
+    opacity:1;
+  }
 }
 
-.script h2 {
-  margin: 0;
-  font-size: 22px;
+.card-header{
+  display:flex;
+  align-items:center;
+  gap:15px;
 }
 
-/* ===== STATUS ===== */
-.status {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 6px 16px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 600;
+.icon{
+  width:60px;
+  height:60px;
+  border-radius:16px;
+  background:linear-gradient(135deg,#7b6cff,#b983ff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:26px;
 }
 
-.working {
-  background: linear-gradient(135deg, #1eff8e, #00c853);
-  color: #003b1a;
+.card h3{
+  font-size:18px;
 }
 
-.patched {
-  background: linear-gradient(135deg, #ff5252, #c62828);
-  color: #ffecec;
+.status{
+  font-size:12px;
+  margin-top:6px;
 }
 
-/* ===== CODE ===== */
-pre {
-  background: rgba(0,0,0,0.6);
-  padding: 16px;
-  border-radius: 14px;
-  overflow-x: auto;
-  margin-top: 16px;
-  font-size: 13px;
-  border: 1px solid rgba(255,255,255,0.1);
+.working{color:#6bff9a}
+.patched{color:#ff6b6b}
+
+pre{
+  margin-top:15px;
+  background:#050510;
+  padding:15px;
+  border-radius:14px;
+  overflow-x:auto;
+  font-size:13px;
+  color:#bcbcff;
 }
 
-/* ===== BUTTON ===== */
-button {
-  margin-top: 16px;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #ffb703, #ff8f00);
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.25s ease;
+/* BUTTON */
+.btn{
+  margin-top:15px;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  font-weight:600;
+  font-size:15px;
+  cursor:pointer;
+  background:linear-gradient(135deg,#7b6cff,#b983ff);
+  color:white;
+  transition:.25s;
 }
 
-button:hover {
-  transform: scale(1.08);
-  box-shadow: 0 10px 35px rgba(255,183,3,0.6);
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 30px rgba(123,108,255,.5);
 }
 
-/* ===== PATCHED LOOK ===== */
-.disabled {
-  opacity: 0.6;
-}
-
-/* ===== FOOTER ===== */
-footer {
-  text-align: center;
-  padding: 30px;
-  color: #aaa;
-  font-size: 13px;
-}
-
-/* ===== ANIMATIONS ===== */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeDown {
-  from { opacity: 0; transform: translateY(-30px); }
-  to { opacity: 1; transform: translateY(0); }
+footer{
+  text-align:center;
+  padding:25px;
+  font-size:13px;
+  color:#aaa;
 }
 </style>
 </head>
 
 <body>
 
-<div class="bg"></div>
+<div class="hero">
+  <h1>Experience the <span>Next Level</span><br>of Scripts</h1>
+  <p>Verified • Smooth • Mobile Optimized</p>
+</div>
 
-<header>
-  <h1>🍪 Cookie Scripts</h1>
-  <p>Animated • Premium • Roblox Script Hub</p>
-</header>
+<div class="section">
+  <div class="section-title">Latest Scripts</div>
 
-<div class="container">
+  <!-- TOP SCRIPT -->
+  <div class="card">
+    <div class="card-header">
+      <div class="icon">⚠️</div>
+      <div>
+        <h3>Cookie Trade Scam V1</h3>
+        <div class="status working">● WORKING</div>
+      </div>
+    </div>
 
-  <!-- TOP -->
-  <div class="script">
-    <h2>Cookie Script Trade Scam V1</h2>
-    <span class="status working">Working</span>
+<pre id="s1">loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/TradescamV1/refs/heads/main/cookiescripts.lua"))()</pre>
 
-<pre id="s1">
-loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/TradescamV1/refs/heads/main/cookiescripts.lua"))()
-</pre>
-
-<button onclick="copy('s1')">Copy Script</button>
+<button class="btn" onclick="copy('s1')">Copy Script</button>
   </div>
 
-  <div class="script">
-    <h2>Cookie Scripts Duper (ETFB)</h2>
-    <span class="status working">Working</span>
+  <!-- SCRIPT 2 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="icon">🍪</div>
+      <div>
+        <h3>Cookie Script Token Duper</h3>
+        <div class="status working">● WORKING</div>
+      </div>
+    </div>
 
-<pre id="s2">
-loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/Cookiescriptsduper/refs/heads/main/cookiescripts.lua"))()
-</pre>
+<pre id="s2">loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/Tokenduper/refs/heads/main/Cookiescripts.lua"))()</pre>
 
-<button onclick="copy('s2')">Copy Script</button>
+<button class="btn" onclick="copy('s2')">Copy Script</button>
   </div>
 
-  <div class="script">
-    <h2>Cookie Script Token Duper</h2>
-    <span class="status working">Working</span>
+  <!-- PATCHED -->
+  <div class="card">
+    <div class="card-header">
+      <div class="icon">⛔</div>
+      <div>
+        <h3>Escape Tsunami For Brainrot</h3>
+        <div class="status patched">● PATCHED / OUTDATED</div>
+      </div>
+    </div>
 
-<pre id="s3">
-loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/Tokenduper/refs/heads/main/Cookiescripts.lua"))()
-</pre>
-
-<button onclick="copy('s3')">Copy Script</button>
-  </div>
-
-  <div class="script disabled">
-    <h2>Escape Tsunami For Brainrot</h2>
-    <span class="status patched">Patched / Outdated</span>
-
-<pre>
-loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/lxdyzhub/refs/heads/main/lxdyzhub.lua"))()
-</pre>
-
-<p style="color:#ccc;font-size:13px;margin-top:10px;">
-❌ Script is no longer working
-</p>
+<pre>Script disabled</pre>
   </div>
 
 </div>
 
 <footer>
-© 2026 Cookie Scripts • Educational Purpose
+© 2026 Cookie Scripts • Premium UI
 </footer>
 
 <script>
 function copy(id){
   navigator.clipboard.writeText(document.getElementById(id).innerText);
-  alert("Script copied!");
+  alert("Copied!");
 }
 </script>
 
