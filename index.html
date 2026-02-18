@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cookie Hub</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  -webkit-user-select:none;
-  user-select:none;
-}
+*{box-sizing:border-box;-webkit-user-select:none;user-select:none}
 body{
   margin:0;
   font-family:'Segoe UI',sans-serif;
@@ -32,6 +28,7 @@ body::before{
     radial-gradient(1px 1px at 10% 80%,#fff,transparent);
   opacity:.35;
   animation:stars 20s linear infinite;
+  pointer-events:none;
 }
 @keyframes stars{
   from{transform:translateY(0)}
@@ -40,8 +37,7 @@ body::before{
 
 .container{
   max-width:420px;
-  margin:40px auto
-  auto;
+  margin:40px auto;
   background:rgba(15,10,30,.85);
   border-radius:18px;
   padding:20px;
@@ -60,11 +56,7 @@ h1{
 .pulse{animation:pulse 2s infinite}
 @keyframes pulse{0%{opacity:.6}50%{opacity:1}100%{opacity:.6}}
 
-.tabs{
-  display:flex;
-  gap:8px;
-  margin-bottom:15px;
-}
+.tabs{display:flex;gap:8px;margin-bottom:15px}
 .tab{
   flex:1;
   padding:10px;
@@ -100,7 +92,6 @@ pre{
   user-select:text;
 }
 
-/* BUTTONS */
 button{
   width:100%;
   margin-top:12px;
@@ -110,16 +101,13 @@ button{
   font-weight:bold;
   font-size:15px;
   cursor:pointer;
-  transition:.25s;
 }
 
-/* COPY */
 button.copy{
   background:linear-gradient(90deg,#8f4dff,#c77dff);
   color:#000;
 }
 
-/* SUB TO UNLOCK */
 button.locked{
   background:linear-gradient(90deg,#ff2f2f,#ff6b6b);
   color:#fff;
@@ -164,8 +152,6 @@ footer{text-align:center;font-size:12px;opacity:.5;margin-top:18px}
 <div id="toast" class="toast">✅ Script Copied</div>
 
 <script>
-const unlocked = localStorage.getItem("cookie_sub") === "true";
-
 const scripts=[
 {
 name:"Cookie Trade Scam V1",
@@ -188,15 +174,20 @@ let current=0;
 const content=document.getElementById("content");
 const toast=document.getElementById("toast");
 
+function isUnlocked(){
+  return localStorage.getItem("cookie_sub")==="true";
+}
+
 function render(){
   const s=scripts[current];
+  const unlocked=isUnlocked();
   content.innerHTML=`
   <div class="card">
     <div class="title">${s.name} 🍪</div>
     <div class="status">🟢 <span>WORKING</span></div>
     <pre>${s.code}</pre>
-    <button class="${unlocked?"copy":"locked"}" onclick="handleCopy()">
-      ${unlocked?"📋 Copy Script":"🔒 Sub to Unlock"}
+    <button class="${unlocked?'copy':'locked'}" onclick="handleCopy()">
+      ${unlocked?'📋 Copy Script':'🔒 Sub to Unlock'}
     </button>
     <div class="stats">Copied ${s.copies} times</div>
   </div>`;
@@ -210,10 +201,9 @@ function switchTab(i){
 }
 
 function handleCopy(){
-  if(!unlocked){
+  if(!isUnlocked()){
     localStorage.setItem("cookie_sub","true");
     window.open("https://www.youtube.com/@cookie_scripts","_blank");
-    location.reload();
     return;
   }
   navigator.clipboard.writeText(scripts[current].code);
