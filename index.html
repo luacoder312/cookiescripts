@@ -6,93 +6,102 @@
 <title>Premium Hub</title>
 
 <style>
-*{box-sizing:border-box;-webkit-user-select:none;user-select:none}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-user-select:none;user-select:none}
 body{
-  margin:0;
   font-family:'Segoe UI',sans-serif;
-  background:linear-gradient(-45deg,#1a0f2e,#2d1155,#0f061f,#3a1475);
-  background-size:400% 400%;
-  animation:bgMove 12s ease infinite;
-  color:#fff;
   min-height:100vh;
-  overflow-x:hidden;
+  overflow:hidden;
+  color:#fff;
+  background:#0b0617;
 }
 
-@keyframes bgMove{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-
-/* Floating particles */
-body::before{
-  content:"";
+/* Animated Gradient Background */
+.bg{
   position:fixed;
   width:200%;
   height:200%;
-  background:url("https://www.transparenttextures.com/patterns/stardust.png");
-  opacity:.08;
-  animation:moveStars 60s linear infinite;
+  background:radial-gradient(circle at 30% 30%,#6a00ff33,transparent 40%),
+             radial-gradient(circle at 70% 70%,#ff00c833,transparent 40%),
+             radial-gradient(circle at 50% 80%,#00f0ff33,transparent 40%);
+  animation:moveBg 20s linear infinite;
+  z-index:-3;
 }
-@keyframes moveStars{
-  from{transform:translate(0,0)}
-  to{transform:translate(-500px,-500px)}
+@keyframes moveBg{
+  0%{transform:translate(0,0)}
+  50%{transform:translate(-10%,-10%)}
+  100%{transform:translate(0,0)}
+}
+
+/* Particle Canvas */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-2;
+}
+
+/* Mouse glow */
+.glow{
+  position:fixed;
+  width:400px;
+  height:400px;
+  background:radial-gradient(circle,#8f4dff55,transparent 60%);
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  z-index:-1;
 }
 
 .container{
   max-width:420px;
-  margin:60px auto;
+  margin:80px auto;
   background:rgba(20,10,40,.85);
   border-radius:20px;
   padding:20px;
   position:relative;
-  box-shadow:0 0 40px rgba(140,60,255,.35);
+  backdrop-filter:blur(10px);
   animation:fadeIn .8s ease;
 }
 
-/* Glowing animated border */
+/* Animated Border */
 .container::before{
   content:"";
   position:absolute;
   inset:-2px;
   border-radius:22px;
-  background:linear-gradient(90deg,#8f4dff,#ff4df0,#8f4dff);
+  background:linear-gradient(90deg,#8f4dff,#ff00ff,#00f0ff,#8f4dff);
   background-size:300% 300%;
-  animation:borderGlow 6s linear infinite;
+  animation:borderMove 6s linear infinite;
   z-index:-1;
 }
-@keyframes borderGlow{
+@keyframes borderMove{
   0%{background-position:0% 50%}
   50%{background-position:100% 50%}
   100%{background-position:0% 50%}
 }
 
 @keyframes fadeIn{
-  from{opacity:0;transform:translateY(20px)}
+  from{opacity:0;transform:translateY(30px)}
   to{opacity:1;transform:translateY(0)}
 }
 
 h1{
   text-align:center;
-  margin:0;
   font-size:28px;
   background:linear-gradient(90deg,#ffb347,#c77dff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 
-.subtitle{text-align:center;opacity:.8;margin-top:5px}
-.active{text-align:center;margin:10px 0 20px;font-size:14px}
+.subtitle{text-align:center;opacity:.8;margin:5px 0 10px}
+.active{text-align:center;margin-bottom:20px;font-size:14px}
 
-.tabs{
-  margin-bottom:15px;
-}
 .tab{
   padding:10px;
   border-radius:12px;
   text-align:center;
   font-weight:bold;
   background:linear-gradient(90deg,#8f4dff,#c77dff);
+  margin-bottom:15px;
 }
 
 .card{
@@ -110,18 +119,10 @@ pre{
   padding:12px;
   border-radius:10px;
   font-size:12px;
-  overflow:hidden;
 }
 
 .pre-locked{
   filter:blur(6px);
-  pointer-events:none;
-}
-
-.lock-overlay{
-  text-align:center;
-  margin-top:-40px;
-  font-size:22px;
 }
 
 button{
@@ -133,8 +134,6 @@ button{
   font-weight:bold;
   font-size:15px;
   cursor:pointer;
-  position:relative;
-  overflow:hidden;
   transition:.3s;
 }
 
@@ -143,33 +142,13 @@ button.copy{
   color:#000;
 }
 button.copy:hover{
-  box-shadow:0 0 20px rgba(199,125,255,.8);
+  box-shadow:0 0 25px #c77dff;
   transform:translateY(-2px);
 }
 
 button.locked{
   background:linear-gradient(90deg,#ff2f2f,#ff6b6b);
   color:#fff;
-}
-
-/* Ripple effect */
-button::after{
-  content:"";
-  position:absolute;
-  width:0;
-  height:0;
-  background:rgba(255,255,255,.4);
-  border-radius:50%;
-  transform:translate(-50%,-50%);
-  top:50%;
-  left:50%;
-  opacity:0;
-  transition:.6s;
-}
-button:active::after{
-  width:200%;
-  height:200%;
-  opacity:0;
 }
 
 .features-box{
@@ -207,15 +186,16 @@ footer{text-align:center;font-size:12px;opacity:.5;margin-top:18px}
 
 <body>
 
+<div class="bg"></div>
+<canvas id="particles"></canvas>
+<div class="glow" id="glow"></div>
+
 <div class="container">
   <h1>Premium Hub</h1>
-  <div class="subtitle">Animated Version</div>
-  <div class="active">👥 Active Users: <span id="users">0</span></div>
+  <div class="subtitle">Ultra Animated Version</div>
+  <div class="active">👥 Active Users: <span id="users">180</span></div>
 
-  <div class="tabs">
-    <div class="tab">Script</div>
-  </div>
-
+  <div class="tab">Script</div>
   <div id="content"></div>
   <footer>© Premium Hub</footer>
 </div>
@@ -223,69 +203,85 @@ footer{text-align:center;font-size:12px;opacity:.5;margin-top:18px}
 <div id="toast" class="toast">✅ Script Copied</div>
 
 <script>
+/* Particle System */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+for(let i=0;i<80;i++){
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*2+1,
+    dx:(Math.random()-.5)*0.5,
+    dy:(Math.random()-.5)*0.5
+  });
+}
+
+function animateParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="#c77dff";
+  particles.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+    p.x+=p.dx;
+    p.y+=p.dy;
+    if(p.x<0||p.x>canvas.width)p.dx*=-1;
+    if(p.y<0||p.y>canvas.height)p.dy*=-1;
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+/* Mouse Glow */
+const glow=document.getElementById("glow");
+document.addEventListener("mousemove",e=>{
+  glow.style.left=e.clientX+"px";
+  glow.style.top=e.clientY+"px";
+});
+
+/* Script Logic */
 const scriptData={
 name:"Loader Script",
 code:`print("Your loader here")`,
-copies:5421
+copies:5000
 };
 
-const content=document.getElementById("content");
-const toast=document.getElementById("toast");
-
-function isUnlocked(){
-  return localStorage.getItem("hub_unlock")==="true";
-}
-
 function render(){
-  const unlocked=isUnlocked();
-
-  content.innerHTML=`
+  document.getElementById("content").innerHTML=`
   <div class="card">
     <div class="title">${scriptData.name}</div>
     <div class="status">🟢 <span>WORKING</span></div>
-
-    ${
-      unlocked
-      ? `<pre>${scriptData.code}</pre>`
-      : `<pre class="pre-locked">${scriptData.code}</pre>
-         <div class="lock-overlay">🔒</div>`
-    }
-
-    <button class="${unlocked?'copy':'locked'}" onclick="handleAction()">
-      ${unlocked?'📋 Copy Script':'🔒 Unlock'}
-    </button>
-
+    <pre>${scriptData.code}</pre>
+    <button class="copy" onclick="copyScript()">📋 Copy Script</button>
     <div class="features-box">
       <div class="features-title">✨ Features</div>
       • Feature One<br>
       • Feature Two<br>
       • Feature Three
     </div>
-
     <div class="stats">Copied ${scriptData.copies} times</div>
   </div>`;
 }
+render();
 
-function handleAction(){
-  if(!isUnlocked()){
-    localStorage.setItem("hub_unlock","true");
-    return render();
-  }
+function copyScript(){
   navigator.clipboard.writeText(scriptData.code);
   scriptData.copies++;
   render();
-  toast.classList.add("show");
-  setTimeout(()=>toast.classList.remove("show"),1200);
+  document.getElementById("toast").classList.add("show");
+  setTimeout(()=>document.getElementById("toast").classList.remove("show"),1200);
 }
 
-/* Animated user counter */
+/* Animated Users Counter */
 let users=180;
 setInterval(()=>{
   users+=Math.floor(Math.random()*3);
   document.getElementById("users").innerText=users;
 },2000);
-
-render();
 </script>
 
 </body>
