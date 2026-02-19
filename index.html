@@ -3,10 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cookie Scripts 🍪</title>
+<title>Premium Hub</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;-webkit-user-select:none;user-select:none}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-user-select:none;
+  user-select:none;
+}
+
 body{
   font-family:'Segoe UI',sans-serif;
   min-height:100vh;
@@ -40,17 +47,7 @@ canvas{
   z-index:-2;
 }
 
-/* Mouse glow */
-.glow{
-  position:fixed;
-  width:400px;
-  height:400px;
-  background:radial-gradient(circle,#8f4dff55,transparent 60%);
-  pointer-events:none;
-  transform:translate(-50%,-50%);
-  z-index:-1;
-}
-
+/* Container */
 .container{
   max-width:420px;
   margin:80px auto;
@@ -59,10 +56,9 @@ canvas{
   padding:20px;
   position:relative;
   backdrop-filter:blur(10px);
-  animation:fadeIn .8s ease;
 }
 
-/* Animated Border */
+/* Neon Border */
 .container::before{
   content:"";
   position:absolute;
@@ -79,21 +75,25 @@ canvas{
   100%{background-position:0% 50%}
 }
 
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(30px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
 h1{
   text-align:center;
-  font-size:28px;
+  font-size:26px;
   background:linear-gradient(90deg,#ffb347,#c77dff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 
-.subtitle{text-align:center;opacity:.8;margin:5px 0 10px}
-.active{text-align:center;margin-bottom:20px;font-size:14px}
+.subtitle{
+  text-align:center;
+  opacity:.8;
+  margin:5px 0 10px;
+}
+
+.active{
+  text-align:center;
+  margin-bottom:20px;
+  font-size:14px;
+}
 
 .tab{
   padding:10px;
@@ -114,15 +114,16 @@ h1{
 .status{font-size:13px;margin-bottom:8px}
 .status span{color:#6aff8a}
 
+/* FIXED SCRIPT BOX */
 pre{
   background:#060312;
   padding:12px;
   border-radius:10px;
   font-size:12px;
-}
-
-.pre-locked{
-  filter:blur(6px);
+  overflow-x:auto;
+  white-space:pre-wrap;
+  word-break:break-word;
+  max-width:100%;
 }
 
 button{
@@ -135,20 +136,13 @@ button{
   font-size:15px;
   cursor:pointer;
   transition:.3s;
-}
-
-button.copy{
   background:linear-gradient(90deg,#8f4dff,#c77dff);
   color:#000;
 }
-button.copy:hover{
-  box-shadow:0 0 25px #c77dff;
-  transform:translateY(-2px);
-}
 
-button.locked{
-  background:linear-gradient(90deg,#ff2f2f,#ff6b6b);
-  color:#fff;
+button:hover{
+  box-shadow:0 0 20px #c77dff;
+  transform:translateY(-2px);
 }
 
 .features-box{
@@ -166,21 +160,38 @@ button.locked{
   color:#c77dff;
 }
 
-.stats{text-align:center;margin-top:8px;font-size:13px;opacity:.7}
-footer{text-align:center;font-size:12px;opacity:.5;margin-top:18px}
+.stats{
+  text-align:center;
+  margin-top:8px;
+  font-size:13px;
+  opacity:.7;
+}
 
+footer{
+  text-align:center;
+  font-size:12px;
+  opacity:.5;
+  margin-top:18px;
+}
+
+/* Toast Popup */
 .toast{
   position:fixed;
   bottom:20px;
   left:50%;
-  transform:translateX(-50%);
+  transform:translateX(-50%) translateY(20px);
   background:#1f123d;
-  padding:10px 18px;
-  border-radius:20px;
+  padding:12px 20px;
+  border-radius:30px;
   opacity:0;
   transition:.3s;
+  box-shadow:0 0 15px #8f4dff;
 }
-.toast.show{opacity:1}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
 </style>
 </head>
 
@@ -188,39 +199,58 @@ footer{text-align:center;font-size:12px;opacity:.5;margin-top:18px}
 
 <div class="bg"></div>
 <canvas id="particles"></canvas>
-<div class="glow" id="glow"></div>
 
 <div class="container">
-  <h1>Cookie Script 🍪</h1>
-  <div class="subtitle">Verified Premium Scripts</div>
+  <h1>Premium Hub</h1>
+  <div class="subtitle">Animated Version</div>
   <div class="active">👥 Active Users: <span id="users">180</span></div>
 
   <div class="tab">Script</div>
-  <div id="content"></div>
-  <footer>© Cookie Scripts • Educational Purpose Only</footer>
+
+  <div class="card">
+    <div class="title">Loader Script</div>
+    <div class="status">🟢 <span>WORKING</span></div>
+
+    <pre id="script">
+loadstring(game:HttpGet("https://your-link-here.com/loader.lua"))()
+    </pre>
+
+    <button onclick="copyScript()">📋 Copy Script</button>
+
+    <div class="features-box">
+      <div class="features-title">✨ Features</div>
+      • Feature One<br>
+      • Feature Two<br>
+      • Feature Three
+    </div>
+
+    <div class="stats">Copied <span id="copies">5000</span> times</div>
+  </div>
+
+  <footer>© Premium Hub</footer>
 </div>
 
-<div id="toast" class="toast">✅ Script Copied</div>
+<div id="toast" class="toast">Copied Script ✅</div>
 
 <script>
-/* Particle System */
+/* PARTICLES */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
 let particles=[];
-for(let i=0;i<80;i++){
+for(let i=0;i<60;i++){
   particles.push({
     x:Math.random()*canvas.width,
     y:Math.random()*canvas.height,
     r:Math.random()*2+1,
-    dx:(Math.random()-.5)*0.5,
-    dy:(Math.random()-.5)*0.5
+    dx:(Math.random()-.5)*0.4,
+    dy:(Math.random()-.5)*0.4
   });
 }
 
-function animateParticles(){
+function animate(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   ctx.fillStyle="#c77dff";
   particles.forEach(p=>{
@@ -232,51 +262,24 @@ function animateParticles(){
     if(p.x<0||p.x>canvas.width)p.dx*=-1;
     if(p.y<0||p.y>canvas.height)p.dy*=-1;
   });
-  requestAnimationFrame(animateParticles);
+  requestAnimationFrame(animate);
 }
-animateParticles();
+animate();
 
-/* Mouse Glow */
-const glow=document.getElementById("glow");
-document.addEventListener("mousemove",e=>{
-  glow.style.left=e.clientX+"px";
-  glow.style.top=e.clientY+"px";
-});
-
-/* Script Logic */
-const scriptData={
-name:"Cookie Script Loader 🔥",
-code:`loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/cookiescriptshub/refs/heads/main/loader.lua"))()`,
-copies:5000
-};
-
-function render(){
-  document.getElementById("content").innerHTML=`
-  <div class="card">
-    <div class="title">${scriptData.name}</div>
-    <div class="status">🟢 <span>WORKING</span></div>
-    <pre>${scriptData.code}</pre>
-    <button class="copy" onclick="copyScript()">📋 Copy Script</button>
-    <div class="features-box">
-      <div class="features-title">✨ Features</div>
-      • Feature One<br>
-      • Feature Two<br>
-      • Feature Three
-    </div>
-    <div class="stats">Copied ${scriptData.copies} times</div>
-  </div>`;
-}
-render();
-
+/* COPY FUNCTION */
 function copyScript(){
-  navigator.clipboard.writeText(scriptData.code);
-  scriptData.copies++;
-  render();
-  document.getElementById("toast").classList.add("show");
-  setTimeout(()=>document.getElementById("toast").classList.remove("show"),1200);
+  const text=document.getElementById("script").innerText;
+  navigator.clipboard.writeText(text);
+
+  let copies=document.getElementById("copies");
+  copies.innerText=parseInt(copies.innerText)+1;
+
+  const toast=document.getElementById("toast");
+  toast.classList.add("show");
+  setTimeout(()=>toast.classList.remove("show"),1500);
 }
 
-/* Animated Users Counter */
+/* USERS COUNTER */
 let users=180;
 setInterval(()=>{
   users+=Math.floor(Math.random()*3);
