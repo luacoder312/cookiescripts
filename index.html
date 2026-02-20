@@ -206,6 +206,28 @@ footer{
   opacity:1;
   transform:translateX(-50%) translateY(0);
 }
+
+/* Discord Floating Button */
+.discord-btn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:linear-gradient(90deg,#5865F2,#8f4dff);
+  color:#fff;
+  padding:12px 18px;
+  border-radius:30px;
+  font-size:13px;
+  font-weight:bold;
+  text-decoration:none;
+  box-shadow:0 0 15px #5865F2;
+  transition:.3s;
+  z-index:999;
+}
+
+.discord-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 0 25px #8f4dff;
+}
 </style>
 </head>
 
@@ -247,15 +269,16 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/cookiescr
 
 <div id="toast" class="toast">Copied Script ✅</div>
 
+<a href="https://discord.gg/VVzPXAG5d" target="_blank" class="discord-btn">
+💬 Need help? Join Discord
+</a>
+
 <script>
-/* Unlock Logic */
 const scriptBox=document.getElementById("scriptBox");
 const unlockBtn=document.getElementById("unlockBtn");
 const copyBtn=document.getElementById("copyBtn");
 
-if(localStorage.getItem("unlocked") === "true"){
-  unlockContent();
-}
+if(localStorage.getItem("unlocked")==="true"){unlockContent();}
 
 function subscribeUnlock(){
   localStorage.setItem("unlocked","true");
@@ -268,14 +291,10 @@ function unlockContent(){
   copyBtn.style.display="block";
 }
 
-/* Check when user returns */
 window.addEventListener("focus",()=>{
-  if(localStorage.getItem("unlocked") === "true"){
-    unlockContent();
-  }
+  if(localStorage.getItem("unlocked")==="true"){unlockContent();}
 });
 
-/* Copy */
 function copyScript(){
   navigator.clipboard.writeText(scriptBox.innerText);
   let copies=document.getElementById("copies");
@@ -285,7 +304,6 @@ function copyScript(){
   setTimeout(()=>toast.classList.remove("show"),1500);
 }
 
-/* USERS COUNTER */
 let users=180;
 setInterval(()=>{
   users+=Math.floor(Math.random()*3);
