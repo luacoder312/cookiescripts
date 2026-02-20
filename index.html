@@ -114,7 +114,7 @@ h1{
 .status{font-size:13px;margin-bottom:8px}
 .status span{color:#6aff8a}
 
-/* FIXED SCRIPT BOX */
+/* SCRIPT BOX LOCK */
 pre{
   background:#060312;
   padding:12px;
@@ -124,6 +124,21 @@ pre{
   white-space:pre-wrap;
   word-break:break-word;
   max-width:100%;
+  transition:.3s;
+}
+
+.locked{
+  filter:blur(6px);
+  position:relative;
+}
+
+.locked::after{
+  content:"🔒";
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:28px;
 }
 
 button{
@@ -174,7 +189,6 @@ footer{
   margin-top:18px;
 }
 
-/* Toast Popup */
 .toast{
   position:fixed;
   bottom:20px;
@@ -211,11 +225,12 @@ footer{
     <div class="title">Script</div>
     <div class="status">🟢 <span>WORKING</span></div>
 
-    <pre id="script">
+    <pre id="scriptBox" class="locked">
 loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/cookiescriptshub/refs/heads/main/loader.lua"))()
     </pre>
 
-    <button onclick="copyScript()">📋 Copy Script</button>
+    <button id="unlockBtn" onclick="subscribeUnlock()">🔓 Subscribe to Unlock</button>
+    <button id="copyBtn" onclick="copyScript()" style="display:none;">📋 Copy Script</button>
 
     <div class="features-box">
       <div class="features-title">✨ Features</div>
@@ -233,47 +248,38 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/cookiescr
 <div id="toast" class="toast">Copied Script ✅</div>
 
 <script>
-/* PARTICLES */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+/* Unlock Logic */
+const scriptBox=document.getElementById("scriptBox");
+const unlockBtn=document.getElementById("unlockBtn");
+const copyBtn=document.getElementById("copyBtn");
 
-let particles=[];
-for(let i=0;i<60;i++){
-  particles.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    r:Math.random()*2+1,
-    dx:(Math.random()-.5)*0.4,
-    dy:(Math.random()-.5)*0.4
-  });
+if(localStorage.getItem("unlocked") === "true"){
+  unlockContent();
 }
 
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle="#c77dff";
-  particles.forEach(p=>{
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fill();
-    p.x+=p.dx;
-    p.y+=p.dy;
-    if(p.x<0||p.x>canvas.width)p.dx*=-1;
-    if(p.y<0||p.y>canvas.height)p.dy*=-1;
-  });
-  requestAnimationFrame(animate);
+function subscribeUnlock(){
+  localStorage.setItem("unlocked","true");
+  window.open("https://youtube.com/@cookie_scripts?si=jpHc0nH8YPdwzNVc","_blank");
 }
-animate();
 
-/* COPY FUNCTION */
+function unlockContent(){
+  scriptBox.classList.remove("locked");
+  unlockBtn.style.display="none";
+  copyBtn.style.display="block";
+}
+
+/* Check when user returns */
+window.addEventListener("focus",()=>{
+  if(localStorage.getItem("unlocked") === "true"){
+    unlockContent();
+  }
+});
+
+/* Copy */
 function copyScript(){
-  const text=document.getElementById("script").innerText;
-  navigator.clipboard.writeText(text);
-
+  navigator.clipboard.writeText(scriptBox.innerText);
   let copies=document.getElementById("copies");
   copies.innerText=parseInt(copies.innerText)+1;
-
   const toast=document.getElementById("toast");
   toast.classList.add("show");
   setTimeout(()=>toast.classList.remove("show"),1500);
