@@ -17,7 +17,7 @@
 body{
   font-family:'Segoe UI',sans-serif;
   min-height:100vh;
-  overflow-x:hidden;   /* FIXED: allow vertical scroll */
+  overflow-x:hidden; /* FIXED SCROLL */
   color:#fff;
   background:#0b0617;
 }
@@ -231,24 +231,25 @@ footer{
     <div class="title">Script</div>
     <div class="status">🟢 <span>WORKING</span></div>
 
-    <pre id="scriptBox">
+    <pre id="scriptBox" class="locked">
 loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/cookiescriptshub/refs/heads/main/loader.lua"))()
     </pre>
 
-    <button onclick="copyScript()">📋 Copy Script</button>
+    <button id="unlockBtn" onclick="subscribeUnlock()">🔓 Subscribe to Unlock</button>
+    <button id="copyBtn" onclick="copyScript()" style="display:none;">📋 Copy Script</button>
 
     <div class="features-box">
       <div class="features-title">✨ Features</div>
       • Brainrot Duper<br>
       • Token Multipler<br>
-      •  Trade Scam V1
+      • Trade Scam V1
     </div>
 
     <div class="stats">Copied <span id="copies">5000</span> times</div>
 
     <div class="features-box">
       <div class="features-title">🎉 Community & Giveaways</div>
-      • 🎁 Weekly Script Giveaways<br>
+      • 🎁 Daily Giveaways<br>
       • 🛠 Fast User Support<br>
       • 📢 Script Update Alerts<br>
       • 💬 Join Our Discord Community<br>
@@ -266,9 +267,33 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/cookiescr
 <div id="toast" class="toast">Copied Script ✅</div>
 
 <script>
+const scriptBox=document.getElementById("scriptBox");
+const unlockBtn=document.getElementById("unlockBtn");
+const copyBtn=document.getElementById("copyBtn");
+
+if(localStorage.getItem("unlocked")==="true"){
+  unlockContent();
+}
+
+function subscribeUnlock(){
+  localStorage.setItem("unlocked","true");
+  window.open("https://youtube.com/@cookie_scripts","_blank");
+}
+
+function unlockContent(){
+  scriptBox.classList.remove("locked");
+  unlockBtn.style.display="none";
+  copyBtn.style.display="block";
+}
+
+window.addEventListener("focus",()=>{
+  if(localStorage.getItem("unlocked")==="true"){
+    unlockContent();
+  }
+});
+
 function copyScript(){
-  const text=document.getElementById("scriptBox").innerText;
-  navigator.clipboard.writeText(text);
+  navigator.clipboard.writeText(scriptBox.innerText);
   let copies=document.getElementById("copies");
   copies.innerText=parseInt(copies.innerText)+1;
   const toast=document.getElementById("toast");
