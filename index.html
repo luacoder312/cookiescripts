@@ -17,7 +17,7 @@
 body{
   font-family:'Segoe UI',sans-serif;
   min-height:100vh;
-  overflow-x:hidden; /* FIXED SCROLL */
+  overflow-x:hidden;
   color:#fff;
   background:#0b0617;
 }
@@ -129,7 +129,7 @@ pre{
   font-size:28px;
 }
 
-button{
+button, .discord-btn {
   width:100%;
   margin-top:12px;
   padding:14px;
@@ -139,11 +139,23 @@ button{
   font-size:15px;
   cursor:pointer;
   transition:.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+button {
   background:linear-gradient(90deg,#8f4dff,#c77dff);
   color:#000;
 }
 
-button:hover{
+.discord-btn {
+  background: #5865F2;
+  color: #fff;
+}
+
+button:hover, .discord-btn:hover {
   box-shadow:0 0 20px #c77dff;
   transform:translateY(-2px);
 }
@@ -156,37 +168,19 @@ button:hover{
   font-size:13px;
   line-height:1.6;
   border:1px solid #8f4dff55;
-  box-shadow:0 0 15px #8f4dff22;
 }
 
 .features-title{
   font-weight:bold;
-  margin-bottom:6px;
+  margin-bottom:4px;
   color:#c77dff;
 }
 
 .stats{
   text-align:center;
-  margin-top:8px;
+  margin-top:12px;
   font-size:13px;
   opacity:.7;
-}
-
-.community-btn{
-  display:block;
-  margin-top:10px;
-  padding:10px;
-  text-align:center;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:bold;
-  background:linear-gradient(90deg,#5865F2,#8f4dff);
-  color:#fff;
-  transition:.3s;
-}
-
-.community-btn:hover{
-  box-shadow:0 0 20px #5865F2;
 }
 
 footer{
@@ -223,7 +217,7 @@ footer{
 <div class="container">
   <h1>Cookie Script 🍪</h1>
   <div class="subtitle">Premium Verified Scripts</div>
-  <div class="active">👥 Active Users: <span id="users">180</span></div>
+  <div class="active">👥 Active Users: <span id="users">182</span></div>
 
   <div class="tab">Cookie Script Loader 🔥</div>
 
@@ -231,12 +225,15 @@ footer{
     <div class="title">Script</div>
     <div class="status">🟢 <span>WORKING</span></div>
 
-    <pre id="scriptBox" class="locked">
-loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/cookiescriptshub/refs/heads/main/loader.lua"))()
-    </pre>
+    <pre id="scriptBox" class="locked">loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/cookiescriptshub/refs/heads/main/loader.lua"))()</pre>
 
     <button id="unlockBtn" onclick="subscribeUnlock()">🔓 Subscribe to Unlock</button>
+    
     <button id="copyBtn" onclick="copyScript()" style="display:none;">📋 Copy Script</button>
+    
+    <a href="https://discord.gg/VVzPXAG5d" target="_blank" id="discordBtn" class="discord-btn" style="display:none;">
+      <span style="margin-right: 8px;">👾</span> Join Our Discord
+    </a>
 
     <div class="features-box">
       <div class="features-title">✨ Features</div>
@@ -246,19 +243,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/cookiescr
     </div>
 
     <div class="stats">Copied <span id="copies">5000</span> times</div>
-
-    <div class="features-box">
-      <div class="features-title">🎉 Community & Giveaways</div>
-      • 🎁 Daily Giveaways<br>
-      • 🛠 Fast User Support<br>
-      • 📢 Script Update Alerts<br>
-      • 💬 Join Our Discord Community<br>
-
-      <a href="https://discord.gg/VVzPXAG5d" target="_blank" class="community-btn">
-        🟣 Join Discord Server
-      </a>
-    </div>
-
   </div>
 
   <footer>© Cookie Script • Educational Purpose Only</footer>
@@ -270,6 +254,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/cookiescr
 const scriptBox=document.getElementById("scriptBox");
 const unlockBtn=document.getElementById("unlockBtn");
 const copyBtn=document.getElementById("copyBtn");
+const discordBtn=document.getElementById("discordBtn");
 
 if(localStorage.getItem("unlocked")==="true"){
   unlockContent();
@@ -277,13 +262,14 @@ if(localStorage.getItem("unlocked")==="true"){
 
 function subscribeUnlock(){
   localStorage.setItem("unlocked","true");
-  window.open("https://youtube.com/@cookie_scripts","_blank");
+  window.open("https://youtube.com/@YOUR_CHANNEL_HERE","_blank"); // Replace with your YT link
 }
 
 function unlockContent(){
   scriptBox.classList.remove("locked");
   unlockBtn.style.display="none";
-  copyBtn.style.display="block";
+  copyBtn.style.display="flex";
+  discordBtn.style.display="flex";
 }
 
 window.addEventListener("focus",()=>{
@@ -301,11 +287,13 @@ function copyScript(){
   setTimeout(()=>toast.classList.remove("show"),1500);
 }
 
-let users=180;
+// User counter logic
+let users=182;
 setInterval(()=>{
-  users+=Math.floor(Math.random()*3);
+  users+=Math.floor(Math.random()*3) - 1; 
+  if(users < 150) users = 182;
   document.getElementById("users").innerText=users;
-},2000);
+},3000);
 </script>
 
 </body>
