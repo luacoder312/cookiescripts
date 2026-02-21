@@ -15,7 +15,7 @@
 *{ box-sizing:border-box; margin:0; padding:0; -webkit-user-select:none; user-select:none; }
 
 body { 
-  font-family: 'Inter', 'Segoe UI', sans-serif; 
+  font-family: 'Inter', sans-serif; 
   height: 100vh; 
   overflow: hidden; 
   color: #fff; 
@@ -25,150 +25,88 @@ body {
   background: #000;
 }
 
-/* FULLSCREEN ANIME VIDEO */
+/* VIDEO BACKGROUND */
 .video-wrapper {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0; left: 0; width: 100%; height: 100%;
   z-index: -2;
-  overflow: hidden;
 }
 
 .video-wrapper video {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   object-fit: cover;
-  filter: brightness(0.5) contrast(1.1); /* Adjusted for readability */
+  filter: brightness(0.4) contrast(1.2);
 }
 
 .video-overlay {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(6,3,14,0.8) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(6,3,14,0.7) 100%);
   z-index: -1;
 }
 
-/* REVAMPED GLASS CONTAINER */
+/* MAIN CONTAINER */
 .container { 
-  max-width: 420px; 
-  width: 90%;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-radius: 30px; 
-  padding: 35px; 
+  max-width: 420px; width: 92%;
+  background: rgba(10, 10, 20, 0.5);
+  backdrop-filter: blur(15px);
+  border-radius: 25px; 
+  padding: 30px; 
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
   text-align: center;
-  animation: fadeIn 1s ease-out;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+h1 { font-size: 32px; margin-bottom: 5px; letter-spacing: -1px; }
+.subtitle { opacity: 0.5; font-size: 10px; letter-spacing: 3px; margin-bottom: 15px; text-transform: uppercase; }
+
+.status-bar {
+  display: flex; justify-content: space-around;
+  margin-bottom: 20px; font-size: 11px; font-weight: bold;
 }
 
-h1 { 
-  font-size: 34px; 
-  font-weight: 800;
-  letter-spacing: -1px;
-  background: linear-gradient(to bottom, #fff, #a1a1a1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.subtitle { 
-  opacity: 0.5; 
-  font-size: 11px; 
-  letter-spacing: 4px; 
-  margin-bottom: 20px; 
-  text-transform: uppercase;
-}
-
-.online-status {
-  background: rgba(106, 255, 138, 0.1);
-  color: #6aff8a;
-  padding: 6px 14px;
-  border-radius: 50px;
-  font-size: 11px;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 25px;
-  border: 1px solid rgba(106, 255, 138, 0.2);
-}
-
-/* SCRIPT AREA */
-.script-box-container {
+.script-area {
   position: relative;
-  background: rgba(0,0,0,0.4);
-  padding: 15px;
-  border-radius: 18px;
-  margin-bottom: 20px;
+  background: rgba(0,0,0,0.6);
+  padding: 15px; border-radius: 15px;
   border: 1px solid rgba(255,255,255,0.05);
+  margin-bottom: 15px;
 }
 
 pre { 
-  font-size: 11px; 
-  color: var(--accent);
-  white-space: pre-wrap; 
-  word-break: break-all;
-  height: 60px;
-  overflow: hidden;
-  transition: 0.3s;
+  font-size: 11px; color: var(--accent);
+  white-space: pre-wrap; word-break: break-all;
+  height: 65px; overflow: hidden;
 }
 
-.locked { filter: blur(12px); }
+.locked { filter: blur(10px); }
 
 /* BUTTONS */
 button, .discord-btn {
-  width: 100%;
-  padding: 16px;
-  border-radius: 15px;
-  font-weight: 800;
-  font-size: 14px;
-  cursor: pointer;
-  border: none;
-  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  margin-top: 12px;
+  width: 100%; padding: 15px; border-radius: 12px;
+  font-weight: 800; font-size: 14px; cursor: pointer; border: none;
+  transition: 0.3s; display: flex; align-items: center; justify-content: center;
+  text-decoration: none; margin-top: 10px;
 }
 
-#unlockBtn { background: #fff; color: #000; }
-#unlockBtn:hover { transform: scale(1.03); box-shadow: 0 0 20px rgba(255,255,255,0.3); }
-
+#unlockBtn { background: #ff0000; color: #fff; } /* YouTube Red */
 #copyBtn { background: var(--primary); color: #fff; }
-#copyBtn:hover { transform: scale(1.03); background: #9d66ff; }
-
 .discord-btn { background: #5865F2; color: #fff; }
-.discord-btn:hover { background: #4752c4; transform: scale(1.03); }
 
-/* FEATURES */
+button:hover { transform: scale(1.02); opacity: 0.9; }
+
 .features {
-  text-align: left;
-  margin-top: 25px;
-  background: rgba(255,255,255,0.03);
-  padding: 15px;
-  border-radius: 15px;
+  text-align: left; margin-top: 20px;
+  background: rgba(255,255,255,0.05);
+  padding: 12px; border-radius: 12px; font-size: 12px;
 }
 
-.features div {
-  font-size: 12px;
-  opacity: 0.7;
-  line-height: 2;
-}
+.copy-counter { font-size: 11px; opacity: 0.4; margin-top: 15px; }
 
-footer { margin-top: 25px; font-size: 10px; opacity: 0.3; letter-spacing: 1px; }
-
-/* TOAST */
 .toast {
   position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
-  background: #fff; color: #000; padding: 12px 30px; border-radius: 50px;
-  font-weight: bold; transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28); opacity: 0;
+  background: #fff; color: #000; padding: 10px 25px; border-radius: 50px;
+  font-weight: bold; transition: 0.4s; opacity: 0;
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
@@ -177,49 +115,46 @@ footer { margin-top: 25px; font-size: 10px; opacity: 0.3; letter-spacing: 1px; }
 
 <div class="video-wrapper">
   <video autoplay muted loop playsinline>
-    <source src="https://assets.mixkit.co/videos/preview/mixkit-starry-night-sky-over-a-calm-lake-4375-large.mp4" type="video/mp4">
+    <source src="https://i.imgur.com/39wFv7W.mp4" type="video/mp4">
   </video>
 </div>
 <div class="video-overlay"></div>
 
 <div class="container">
   <h1>Cookie Script</h1>
-  <div class="subtitle">Premium Script Hub</div>
+  <div class="subtitle">Premium Loader</div>
 
-  <div class="online-status">
-    <span style="color:#6aff8a">●</span> <span id="users">182</span> USERS ONLINE
+  <div class="status-bar">
+    <span style="color:#6aff8a">● <span id="users">182</span> ONLINE</span>
+    <span style="color:var(--accent)">V2.0 STABLE</span>
   </div>
 
-  <div class="script-box-container">
-    <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:10px; font-weight:700; opacity:0.6;">
-      <span>LUA EXECUTABLE</span>
-      <span style="color:#6aff8a">STABLE</span>
-    </div>
+  <div class="script-area">
     <pre id="scriptBox" class="locked">loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/cookiescriptshub/refs/heads/main/loader.lua"))()</pre>
-    <div id="lockIcon" style="position:absolute; top:55%; left:50%; transform:translate(-50%,-50%); font-size:24px;">🔒</div>
+    <div id="lockIcon" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:20px;">🔒</div>
   </div>
 
-  <button id="unlockBtn" onclick="subscribeUnlock()">UNLOCK ACCESS</button>
+  <button id="unlockBtn" onclick="subscribeUnlock()">▶ SUBSCRIBE TO UNLOCK</button>
   
-  <button id="copyBtn" onclick="copyScript()" style="display:none;">COPY TO CLIPBOARD</button>
+  <button id="copyBtn" onclick="copyScript()" style="display:none;">📋 COPY SCRIPT</button>
   
   <a href="https://discord.gg/VVzPXAG5d" target="_blank" id="discordBtn" class="discord-btn" style="display:none;">
-    <span style="margin-right:10px;">👾</span> JOIN DISCORD
+    <span>👾</span> JOIN DISCORD
   </a>
 
   <div class="features">
-    <div style="color:var(--primary); font-weight:800; margin-bottom:5px;">PREMIUM FEATURES</div>
-    <div>
-      • Brainrot Duper (V2)<br>
-      • Instant Token Multiplier<br>
-      • Stealth Trade Scam V1
-    </div>
+    <b style="color:var(--primary)">FEATURES:</b><br>
+    • Brainrot Duper (V2)<br>
+    • Token Multiplier<br>
+    • Stealth Trade Scam
   </div>
 
-  <footer>© 2026 COOKIE SCRIPTS</footer>
+  <div class="copy-counter">
+    Total Copies: <span id="copies">5402</span>
+  </div>
 </div>
 
-<div id="toast" class="toast">COPIED TO CLIPBOARD 🚀</div>
+<div id="toast" class="toast">COPIED! 🚀</div>
 
 <script>
 const scriptBox = document.getElementById("scriptBox");
@@ -227,15 +162,18 @@ const lockIcon = document.getElementById("lockIcon");
 const unlockBtn = document.getElementById("unlockBtn");
 const copyBtn = document.getElementById("copyBtn");
 const discordBtn = document.getElementById("discordBtn");
+const copySpan = document.getElementById("copies");
 
-// Check if user already unlocked it
-if(localStorage.getItem("unlocked") === "true") { 
-  unlockContent(); 
-}
+// Load saved copy count or start at 5402
+let currentCopies = parseInt(localStorage.getItem("totalCopies")) || 5402;
+copySpan.innerText = currentCopies.toLocaleString();
+
+if(localStorage.getItem("unlocked") === "true") { unlockContent(); }
 
 function subscribeUnlock() {
   localStorage.setItem("unlocked", "true");
   window.open("Https://youtube.com/@cookie_scripts?si=blyuvZV1utqaf4T5", "_blank");
+  // The focus event below will handle the reveal when they come back
 }
 
 function unlockContent() {
@@ -246,22 +184,27 @@ function unlockContent() {
   discordBtn.style.display = "flex";
 }
 
-// Check for unlock when tab is focused
 window.addEventListener("focus", () => {
   if(localStorage.getItem("unlocked") === "true") { unlockContent(); }
 });
 
 function copyScript() {
   navigator.clipboard.writeText(scriptBox.innerText);
+  
+  // Update counter
+  currentCopies++;
+  copySpan.innerText = currentCopies.toLocaleString();
+  localStorage.setItem("totalCopies", currentCopies);
+  
   const toast = document.getElementById("toast");
   toast.classList.add("show");
   setTimeout(() => toast.classList.remove("show"), 2000);
 }
 
-// Realistic counter
+// Online user simulation
 let users = 182;
 setInterval(() => {
-  users += Math.floor(Math.random() * 5) - 2;
+  users += Math.floor(Math.random() * 3) - 1;
   document.getElementById("users").innerText = users;
 }, 3000);
 </script>
