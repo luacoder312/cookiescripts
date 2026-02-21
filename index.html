@@ -3,131 +3,244 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cookie Script 🍪</title>
+<title>Cookie Script | Premium</title>
 
 <style>
-*{ box-sizing:border-box; margin:0; padding:0; -webkit-user-select:none; user-select:none; }
-body{ font-family:'Segoe UI',sans-serif; min-height:100vh; overflow-x:hidden; color:#fff; background:#0b0617; }
-
-.bg{
-  position:fixed; width:200%; height:200%;
-  background:radial-gradient(circle at 30% 30%,#6a00ff33,transparent 40%),
-             radial-gradient(circle at 70% 70%,#ff00c833,transparent 40%),
-             radial-gradient(circle at 50% 80%,#00f0ff33,transparent 40%);
-  animation:moveBg 20s linear infinite; z-index:-3;
+:root {
+  --primary: #8f4dff;
+  --secondary: #ff00c8;
+  --accent: #00f0ff;
+  --bg-dark: #06030e;
+  --glass: rgba(255, 255, 255, 0.05);
 }
-@keyframes moveBg{ 0%{transform:translate(0,0)} 50%{transform:translate(-10%,-10%)} 100%{transform:translate(0,0)} }
 
-.container{ max-width:420px; margin:80px auto; background:rgba(20,10,40,.85); border-radius:20px; padding:20px; position:relative; backdrop-filter:blur(10px); }
-.container::before{ content:""; position:absolute; inset:-2px; border-radius:22px; background:linear-gradient(90deg,#8f4dff,#ff00ff,#00f0ff,#8f4dff); background-size:300% 300%; animation:borderMove 6s linear infinite; z-index:-1; }
-@keyframes borderMove{ 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+*{ box-sizing:border-box; margin:0; padding:0; -webkit-user-select:none; user-select:none; }
 
-h1{ text-align:center; font-size:26px; background:linear-gradient(90deg,#ffb347,#c77dff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-.subtitle{ text-align:center; opacity:.8; margin:5px 0 10px; }
-.active{ text-align:center; margin-bottom:20px; font-size:14px; }
-.tab{ padding:10px; border-radius:12px; text-align:center; font-weight:bold; background:linear-gradient(90deg,#8f4dff,#c77dff); margin-bottom:15px; }
-.card{ background:#120b25; border-radius:16px; padding:15px; }
+body{ 
+  font-family:'Segoe UI', Roboto, sans-serif; 
+  min-height:100vh; 
+  overflow-x:hidden; 
+  color:#fff; 
+  background: var(--bg-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-pre{ background:#060312; padding:12px; border-radius:10px; font-size:12px; overflow-x:auto; white-space:pre-wrap; word-break:break-word; transition:.3s; margin-top:10px;}
-.locked{ filter:blur(6px); position:relative; }
-.locked::after{ content:"🔒"; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:28px; }
+/* COOL ANIMATED BACKGROUND */
+.bg-mesh {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: -1;
+  background: 
+    radial-gradient(at 0% 0%, rgba(143, 77, 255, 0.15) 0, transparent 50%), 
+    radial-gradient(at 100% 0%, rgba(0, 240, 255, 0.15) 0, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(255, 0, 200, 0.15) 0, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(143, 77, 255, 0.15) 0, transparent 50%);
+  animation: meshMove 15s ease infinite alternate;
+}
 
+@keyframes meshMove {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+/* ENTRANCE ANIMATION */
+.container { 
+  max-width: 440px; 
+  width: 90%;
+  background: rgba(15, 10, 25, 0.7);
+  border-radius: 24px; 
+  padding: 30px; 
+  position: relative; 
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1 { 
+  text-align: center; 
+  font-size: 32px; 
+  letter-spacing: -1px;
+  background: linear-gradient(to right, #fff, var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 5px;
+}
+
+.subtitle { text-align:center; opacity:.6; font-size: 14px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px;}
+
+.active-pill {
+  background: rgba(106, 255, 138, 0.1);
+  color: #6aff8a;
+  padding: 5px 15px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+  margin: 0 auto 25px;
+  display: table;
+}
+
+.tab { 
+  padding:12px; border-radius:14px; text-align:center; font-weight:bold; 
+  background: linear-gradient(135deg, var(--primary), #6a00ff);
+  box-shadow: 0 10px 20px -5px rgba(143, 77, 255, 0.5);
+  margin-bottom:20px;
+}
+
+.card-inner { background: var(--glass); border-radius:18px; padding:20px; border: 1px solid rgba(255,255,255,0.05); }
+
+pre { 
+  background: #000; padding:15px; border-radius:12px; font-size:12px; 
+  color: var(--accent);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  margin-top:15px;
+  white-space: pre-wrap; word-break: break-all;
+}
+
+.locked { filter: blur(8px); cursor: not-allowed; }
+.lock-overlay {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-size: 30px; text-shadow: 0 0 20px var(--primary);
+}
+
+/* NEON BUTTONS */
 button, .discord-link {
-  width:100%; margin-top:12px; padding:14px; border:none; border-radius:12px;
-  font-weight:bold; font-size:15px; cursor:pointer; transition:.3s;
+  width:100%; margin-top:15px; padding:16px; border:none; border-radius:14px;
+  font-weight:bold; font-size:16px; cursor:pointer; transition:all 0.3s ease;
   display: flex; align-items: center; justify-content: center; text-decoration: none;
 }
-button { background:linear-gradient(90deg,#8f4dff,#c77dff); color:#000; }
-.discord-link { background: #5865F2; color: #fff; }
-button:hover, .discord-link:hover { box-shadow:0 0 20px #c77dff; transform:translateY(-2px); }
 
-.features-box{ margin-top:14px; padding:12px; background:#1a1035; border-radius:12px; font-size:13px; line-height:1.6; border:1px solid #8f4dff55; }
-.stats{ text-align:center; margin-top:8px; font-size:13px; opacity:.7; }
-footer{ text-align:center; font-size:12px; opacity:.5; margin-top:18px; }
-.toast{ position:fixed; bottom:20px; left:50%; transform:translateX(-50%) translateY(20px); background:#1f123d; padding:12px 20px; border-radius:30px; opacity:0; transition:.3s; box-shadow:0 0 15px #8f4dff; }
-.toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+#unlockBtn { background: #fff; color: #000; }
+#unlockBtn:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(255,255,255,0.3); }
+
+#copyBtn { background: var(--primary); color: #fff; }
+#copyBtn:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(143, 77, 255, 0.4); }
+
+.discord-link { background: #5865F2; color: #fff; }
+.discord-link:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(88, 101, 242, 0.4); }
+
+.features-box { 
+  margin-top:20px; padding:15px; border-radius:14px; 
+  background: rgba(0,0,0,0.2); border-left: 3px solid var(--primary);
+}
+
+.stats { text-align:center; margin-top:15px; font-size:12px; opacity:.4; font-style: italic;}
+
+footer { text-align:center; font-size:11px; opacity:.3; margin-top:25px; letter-spacing: 1px;}
+
+.toast { 
+  position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(100px); 
+  background: var(--primary); color: white; padding:12px 25px; border-radius:50px; 
+  transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); opacity:0;
+}
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 </style>
 </head>
 <body>
 
-<div class="bg"></div>
+<div class="bg-mesh"></div>
 
 <div class="container">
   <h1>Cookie Script 🍪</h1>
-  <div class="subtitle">Premium Verified Scripts</div>
-  <div class="active">👥 Active Users: <span id="users">182</span></div>
+  <div class="subtitle">Verified Premium Scripts</div>
+  <div class="active-pill">● <span id="users">182</span> Online Users</div>
 
-  <div class="tab">Cookie Script Loader 🔥</div>
+  <div class="tab">Loader V2.0 Available 🔥</div>
 
-  <div class="card">
-    <div style="font-size:18px;">Script</div>
-    <div style="font-size:13px; color:#6aff8a;">🟢 WORKING</div>
+  <div class="card-inner">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <span style="font-weight: bold; font-size: 14px; opacity: 0.8;">LOADER SCRIPT</span>
+      <span style="color:#6aff8a; font-size: 11px; font-weight: bold; letter-spacing: 1px;">🟢 ACTIVE</span>
+    </div>
 
-    <pre id="scriptBox" class="locked">loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/cookiescriptshub/refs/heads/main/loader.lua"))()</pre>
+    <div style="position: relative;">
+      <pre id="scriptBox" class="locked">loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/cookiescriptshub/refs/heads/main/loader.lua"))()</pre>
+      <div id="lockIcon" class="lock-overlay">🔒</div>
+    </div>
 
-    <button id="unlockBtn" onclick="subscribeUnlock()">🔓 Subscribe to Unlock</button>
-    <button id="copyBtn" onclick="copyScript()" style="display:none;">📋 Copy Script</button>
+    <button id="unlockBtn" onclick="subscribeUnlock()">🔓 UNLOCK ACCESS</button>
+    
+    <button id="copyBtn" onclick="copyScript()" style="display:none;">📋 COPY SCRIPT</button>
     
     <a href="https://discord.gg/VVzPXAG5d" target="_blank" id="discordBtn" class="discord-link" style="display:none;">
-      <span style="margin-right:8px;">👾</span> Join Discord
+      <span style="margin-right:10px;">👾</span> JOIN DISCORD
     </a>
 
     <div class="features-box">
-      <b style="color:#c77dff;">✨ Features</b><br>
-      • Brainrot Duper<br>
-      • Token Multipler<br>
-      • Trade Scam V1
+      <div style="color:var(--primary); font-weight:bold; margin-bottom:5px; font-size:13px;">INCLUDED FEATURES:</div>
+      <div style="font-size:13px; opacity:0.8; line-height:1.8;">
+        ⚡ Brainrot Duper (OP)<br>
+        💎 Token Multiplier<br>
+        🔄 Trade Scam V1
+      </div>
     </div>
 
-    <div class="stats">Copied <span id="copies">5000</span> times</div>
+    <div class="stats">Global Usage: <span id="copies">5,102</span> users</div>
   </div>
 
-  <footer>© Cookie Script • Educational Purpose Only</footer>
+  <footer>© 2026 COOKIE SCRIPTS • FOR EDUCATIONAL USE</footer>
 </div>
 
-<div id="toast" class="toast">Copied Script ✅</div>
+<div id="toast" class="toast">Script Copied to Clipboard! 🚀</div>
 
 <script>
-const scriptBox=document.getElementById("scriptBox");
-const unlockBtn=document.getElementById("unlockBtn");
-const copyBtn=document.getElementById("copyBtn");
-const discordBtn=document.getElementById("discordBtn");
+const scriptBox = document.getElementById("scriptBox");
+const lockIcon = document.getElementById("lockIcon");
+const unlockBtn = document.getElementById("unlockBtn");
+const copyBtn = document.getElementById("copyBtn");
+const discordBtn = document.getElementById("discordBtn");
 
-// Check if already unlocked on reload
-if(localStorage.getItem("unlocked")==="true") { unlockContent(); }
-
-function subscribeUnlock(){
-  localStorage.setItem("unlocked","true");
-  // Your YouTube link
-  window.open("Https://youtube.com/@cookie_scripts?si=blyuvZV1utqaf4T5","_blank");
+// Check persistence
+if(localStorage.getItem("unlocked") === "true") { 
+  unlockContent(); 
 }
 
-function unlockContent(){
+function subscribeUnlock() {
+  localStorage.setItem("unlocked", "true");
+  // Opens your YouTube link
+  window.open("Https://youtube.com/@cookie_scripts?si=blyuvZV1utqaf4T5", "_blank");
+}
+
+function unlockContent() {
   scriptBox.classList.remove("locked");
-  unlockBtn.style.display="none";
-  copyBtn.style.display="flex";
-  discordBtn.style.display="flex";
+  lockIcon.style.display = "none";
+  unlockBtn.style.display = "none";
+  copyBtn.style.display = "flex";
+  discordBtn.style.display = "flex";
 }
 
-// Auto-unlock when returning to the tab
-window.addEventListener("focus",()=>{
-  if(localStorage.getItem("unlocked")==="true"){ unlockContent(); }
+// Auto-check on refocus
+window.addEventListener("focus", () => {
+  if(localStorage.getItem("unlocked") === "true") { 
+    unlockContent(); 
+  }
 });
 
-function copyScript(){
+function copyScript() {
   navigator.clipboard.writeText(scriptBox.innerText);
-  document.getElementById("copies").innerText = parseInt(document.getElementById("copies").innerText) + 1;
-  const toast=document.getElementById("toast");
+  let count = document.getElementById("copies");
+  count.innerText = (parseInt(count.innerText.replace(',','')) + 1).toLocaleString();
+  
+  const toast = document.getElementById("toast");
   toast.classList.add("show");
-  setTimeout(()=>toast.classList.remove("show"),1500);
+  setTimeout(() => toast.classList.remove("show"), 2500);
 }
 
-// User Counter
-let users=182;
-setInterval(()=>{
-  users += Math.floor(Math.random()*3) - 1;
+// Realistic User Counter
+let users = 182;
+setInterval(() => {
+  users += Math.floor(Math.random() * 5) - 2;
+  if(users < 160) users = 182;
   document.getElementById("users").innerText = users;
-},3000);
+}, 3000);
 </script>
 
 </body>
