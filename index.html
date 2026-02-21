@@ -6,210 +6,48 @@
 <title>Cookie Script 🍪</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  -webkit-user-select:none;
-  user-select:none;
-}
-
-body{
-  font-family:'Segoe UI',sans-serif;
-  min-height:100vh;
-  overflow-x:hidden;
-  color:#fff;
-  background:#0b0617;
-}
+*{ box-sizing:border-box; margin:0; padding:0; -webkit-user-select:none; user-select:none; }
+body{ font-family:'Segoe UI',sans-serif; min-height:100vh; overflow-x:hidden; color:#fff; background:#0b0617; }
 
 .bg{
-  position:fixed;
-  width:200%;
-  height:200%;
+  position:fixed; width:200%; height:200%;
   background:radial-gradient(circle at 30% 30%,#6a00ff33,transparent 40%),
              radial-gradient(circle at 70% 70%,#ff00c833,transparent 40%),
              radial-gradient(circle at 50% 80%,#00f0ff33,transparent 40%);
-  animation:moveBg 20s linear infinite;
-  z-index:-3;
+  animation:moveBg 20s linear infinite; z-index:-3;
 }
-@keyframes moveBg{
-  0%{transform:translate(0,0)}
-  50%{transform:translate(-10%,-10%)}
-  100%{transform:translate(0,0)}
-}
+@keyframes moveBg{ 0%{transform:translate(0,0)} 50%{transform:translate(-10%,-10%)} 100%{transform:translate(0,0)} }
 
-.container{
-  max-width:420px;
-  margin:80px auto;
-  background:rgba(20,10,40,.85);
-  border-radius:20px;
-  padding:20px;
-  position:relative;
-  backdrop-filter:blur(10px);
-}
+.container{ max-width:420px; margin:80px auto; background:rgba(20,10,40,.85); border-radius:20px; padding:20px; position:relative; backdrop-filter:blur(10px); }
+.container::before{ content:""; position:absolute; inset:-2px; border-radius:22px; background:linear-gradient(90deg,#8f4dff,#ff00ff,#00f0ff,#8f4dff); background-size:300% 300%; animation:borderMove 6s linear infinite; z-index:-1; }
+@keyframes borderMove{ 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
-.container::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  border-radius:22px;
-  background:linear-gradient(90deg,#8f4dff,#ff00ff,#00f0ff,#8f4dff);
-  background-size:300% 300%;
-  animation:borderMove 6s linear infinite;
-  z-index:-1;
-}
-@keyframes borderMove{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
+h1{ text-align:center; font-size:26px; background:linear-gradient(90deg,#ffb347,#c77dff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.subtitle{ text-align:center; opacity:.8; margin:5px 0 10px; }
+.active{ text-align:center; margin-bottom:20px; font-size:14px; }
+.tab{ padding:10px; border-radius:12px; text-align:center; font-weight:bold; background:linear-gradient(90deg,#8f4dff,#c77dff); margin-bottom:15px; }
+.card{ background:#120b25; border-radius:16px; padding:15px; }
 
-h1{
-  text-align:center;
-  font-size:26px;
-  background:linear-gradient(90deg,#ffb347,#c77dff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
+pre{ background:#060312; padding:12px; border-radius:10px; font-size:12px; overflow-x:auto; white-space:pre-wrap; word-break:break-word; transition:.3s; margin-top:10px;}
+.locked{ filter:blur(6px); position:relative; }
+.locked::after{ content:"🔒"; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:28px; }
 
-.subtitle{
-  text-align:center;
-  opacity:.8;
-  margin:5px 0 10px;
+button, .discord-link {
+  width:100%; margin-top:12px; padding:14px; border:none; border-radius:12px;
+  font-weight:bold; font-size:15px; cursor:pointer; transition:.3s;
+  display: flex; align-items: center; justify-content: center; text-decoration: none;
 }
+button { background:linear-gradient(90deg,#8f4dff,#c77dff); color:#000; }
+.discord-link { background: #5865F2; color: #fff; }
+button:hover, .discord-link:hover { box-shadow:0 0 20px #c77dff; transform:translateY(-2px); }
 
-.active{
-  text-align:center;
-  margin-bottom:20px;
-  font-size:14px;
-}
-
-.tab{
-  padding:10px;
-  border-radius:12px;
-  text-align:center;
-  font-weight:bold;
-  background:linear-gradient(90deg,#8f4dff,#c77dff);
-  margin-bottom:15px;
-}
-
-.card{
-  background:#120b25;
-  border-radius:16px;
-  padding:15px;
-}
-
-.title{font-size:18px;margin-bottom:6px}
-.status{font-size:13px;margin-bottom:8px}
-.status span{color:#6aff8a}
-
-pre{
-  background:#060312;
-  padding:12px;
-  border-radius:10px;
-  font-size:12px;
-  overflow-x:auto;
-  white-space:pre-wrap;
-  word-break:break-word;
-  max-width:100%;
-  transition:.3s;
-}
-
-.locked{
-  filter:blur(6px);
-  position:relative;
-}
-
-.locked::after{
-  content:"🔒";
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  font-size:28px;
-}
-
-button, .discord-btn {
-  width:100%;
-  margin-top:12px;
-  padding:14px;
-  border:none;
-  border-radius:12px;
-  font-weight:bold;
-  font-size:15px;
-  cursor:pointer;
-  transition:.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-}
-
-button {
-  background:linear-gradient(90deg,#8f4dff,#c77dff);
-  color:#000;
-}
-
-.discord-btn {
-  background: #5865F2;
-  color: #fff;
-}
-
-button:hover, .discord-btn:hover {
-  box-shadow:0 0 20px #c77dff;
-  transform:translateY(-2px);
-}
-
-.features-box{
-  margin-top:14px;
-  padding:12px;
-  background:#1a1035;
-  border-radius:12px;
-  font-size:13px;
-  line-height:1.6;
-  border:1px solid #8f4dff55;
-}
-
-.features-title{
-  font-weight:bold;
-  margin-bottom:4px;
-  color:#c77dff;
-}
-
-.stats{
-  text-align:center;
-  margin-top:12px;
-  font-size:13px;
-  opacity:.7;
-}
-
-footer{
-  text-align:center;
-  font-size:12px;
-  opacity:.5;
-  margin-top:18px;
-}
-
-.toast{
-  position:fixed;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%) translateY(20px);
-  background:#1f123d;
-  padding:12px 20px;
-  border-radius:30px;
-  opacity:0;
-  transition:.3s;
-  box-shadow:0 0 15px #8f4dff;
-}
-
-.toast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
-}
+.features-box{ margin-top:14px; padding:12px; background:#1a1035; border-radius:12px; font-size:13px; line-height:1.6; border:1px solid #8f4dff55; }
+.stats{ text-align:center; margin-top:8px; font-size:13px; opacity:.7; }
+footer{ text-align:center; font-size:12px; opacity:.5; margin-top:18px; }
+.toast{ position:fixed; bottom:20px; left:50%; transform:translateX(-50%) translateY(20px); background:#1f123d; padding:12px 20px; border-radius:30px; opacity:0; transition:.3s; box-shadow:0 0 15px #8f4dff; }
+.toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
 </style>
 </head>
-
 <body>
 
 <div class="bg"></div>
@@ -222,21 +60,20 @@ footer{
   <div class="tab">Cookie Script Loader 🔥</div>
 
   <div class="card">
-    <div class="title">Script</div>
-    <div class="status">🟢 <span>WORKING</span></div>
+    <div style="font-size:18px;">Script</div>
+    <div style="font-size:13px; color:#6aff8a;">🟢 WORKING</div>
 
     <pre id="scriptBox" class="locked">loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/cookiescriptshub/refs/heads/main/loader.lua"))()</pre>
 
     <button id="unlockBtn" onclick="subscribeUnlock()">🔓 Subscribe to Unlock</button>
-    
     <button id="copyBtn" onclick="copyScript()" style="display:none;">📋 Copy Script</button>
     
-    <a href="https://discord.gg/VVzPXAG5d" target="_blank" id="discordBtn" class="discord-btn" style="display:none;">
-      <span style="margin-right: 8px;">👾</span> Join Our Discord
+    <a href="https://discord.gg/VVzPXAG5d" target="_blank" id="discordBtn" class="discord-link" style="display:none;">
+      <span style="margin-right:8px;">👾</span> Join Discord
     </a>
 
     <div class="features-box">
-      <div class="features-title">✨ Features</div>
+      <b style="color:#c77dff;">✨ Features</b><br>
       • Brainrot Duper<br>
       • Token Multipler<br>
       • Trade Scam V1
@@ -256,13 +93,13 @@ const unlockBtn=document.getElementById("unlockBtn");
 const copyBtn=document.getElementById("copyBtn");
 const discordBtn=document.getElementById("discordBtn");
 
-if(localStorage.getItem("unlocked")==="true"){
-  unlockContent();
-}
+// Check if already unlocked on reload
+if(localStorage.getItem("unlocked")==="true") { unlockContent(); }
 
 function subscribeUnlock(){
   localStorage.setItem("unlocked","true");
-  window.open("https://youtube.com/@YOUR_CHANNEL_HERE","_blank"); // Replace with your YT link
+  // Your YouTube link
+  window.open("Https://youtube.com/@cookie_scripts?si=blyuvZV1utqaf4T5","_blank");
 }
 
 function unlockContent(){
@@ -272,27 +109,24 @@ function unlockContent(){
   discordBtn.style.display="flex";
 }
 
+// Auto-unlock when returning to the tab
 window.addEventListener("focus",()=>{
-  if(localStorage.getItem("unlocked")==="true"){
-    unlockContent();
-  }
+  if(localStorage.getItem("unlocked")==="true"){ unlockContent(); }
 });
 
 function copyScript(){
   navigator.clipboard.writeText(scriptBox.innerText);
-  let copies=document.getElementById("copies");
-  copies.innerText=parseInt(copies.innerText)+1;
+  document.getElementById("copies").innerText = parseInt(document.getElementById("copies").innerText) + 1;
   const toast=document.getElementById("toast");
   toast.classList.add("show");
   setTimeout(()=>toast.classList.remove("show"),1500);
 }
 
-// User counter logic
+// User Counter
 let users=182;
 setInterval(()=>{
-  users+=Math.floor(Math.random()*3) - 1; 
-  if(users < 150) users = 182;
-  document.getElementById("users").innerText=users;
+  users += Math.floor(Math.random()*3) - 1;
+  document.getElementById("users").innerText = users;
 },3000);
 </script>
 
