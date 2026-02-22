@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cookie Script | Premium</title>
+<title>Cookie Script | Premium Hub</title>
 
 <style>
 :root {
   --primary: #8f4dff;
   --accent: #00f0ff;
-  --bg-dark: #06030e;
+  --yt-red: #ff0000;
 }
 
 *{ box-sizing:border-box; margin:0; padding:0; -webkit-user-select:none; user-select:none; }
 
 body { 
-  font-family: 'Inter', sans-serif; 
+  font-family: 'Inter', 'Segoe UI', sans-serif; 
   height: 100vh; 
   overflow: hidden; 
   color: #fff; 
@@ -25,7 +25,7 @@ body {
   background: #000;
 }
 
-/* VIDEO BACKGROUND */
+/* BACKGROUND VIDEO */
 .video-wrapper {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -35,78 +35,115 @@ body {
 .video-wrapper video {
   width: 100%; height: 100%;
   object-fit: cover;
-  filter: brightness(0.4) contrast(1.2);
+  filter: brightness(0.4) contrast(1.1);
 }
 
 .video-overlay {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(6,3,14,0.7) 100%);
+  background: radial-gradient(circle, transparent 20%, rgba(6,3,14,0.8) 100%);
   z-index: -1;
 }
 
-/* MAIN CONTAINER */
+/* MAIN UI CONTAINER */
 .container { 
   max-width: 420px; width: 92%;
-  background: rgba(10, 10, 20, 0.5);
-  backdrop-filter: blur(15px);
-  border-radius: 25px; 
-  padding: 30px; 
+  background: rgba(15, 10, 25, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 28px; 
+  padding: 35px; 
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.7);
   text-align: center;
+  animation: entrance 0.8s ease-out;
 }
 
-h1 { font-size: 32px; margin-bottom: 5px; letter-spacing: -1px; }
-.subtitle { opacity: 0.5; font-size: 10px; letter-spacing: 3px; margin-bottom: 15px; text-transform: uppercase; }
-
-.status-bar {
-  display: flex; justify-content: space-around;
-  margin-bottom: 20px; font-size: 11px; font-weight: bold;
+@keyframes entrance {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-.script-area {
+h1 { font-size: 34px; font-weight: 800; letter-spacing: -1px; margin-bottom: 5px; }
+.subtitle { opacity: 0.5; font-size: 10px; letter-spacing: 4px; margin-bottom: 20px; text-transform: uppercase; }
+
+.status-pill {
+  background: rgba(106, 255, 138, 0.1);
+  color: #6aff8a;
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 25px;
+  border: 1px solid rgba(106, 255, 138, 0.2);
+}
+
+.script-box {
   position: relative;
-  background: rgba(0,0,0,0.6);
-  padding: 15px; border-radius: 15px;
-  border: 1px solid rgba(255,255,255,0.05);
+  background: rgba(0,0,0,0.5);
+  padding: 18px;
+  border-radius: 18px;
   margin-bottom: 15px;
+  border: 1px solid rgba(255,255,255,0.05);
 }
 
 pre { 
-  font-size: 11px; color: var(--accent);
-  white-space: pre-wrap; word-break: break-all;
-  height: 65px; overflow: hidden;
+  font-size: 11px; 
+  color: var(--accent);
+  white-space: pre-wrap; 
+  word-break: break-all;
+  height: 60px;
+  overflow: hidden;
 }
 
-.locked { filter: blur(10px); }
+.locked { filter: blur(12px); }
 
-/* BUTTONS */
+/* BUTTON STYLES */
 button, .discord-btn {
-  width: 100%; padding: 15px; border-radius: 12px;
-  font-weight: 800; font-size: 14px; cursor: pointer; border: none;
-  transition: 0.3s; display: flex; align-items: center; justify-content: center;
-  text-decoration: none; margin-top: 10px;
+  width: 100%;
+  padding: 16px;
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  margin-top: 10px;
 }
 
-#unlockBtn { background: #ff0000; color: #fff; } /* YouTube Red */
+#unlockBtn { background: var(--yt-red); color: #fff; }
+#unlockBtn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(255,0,0,0.3); }
+
 #copyBtn { background: var(--primary); color: #fff; }
+#copyBtn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(143, 77, 255, 0.3); }
+
 .discord-btn { background: #5865F2; color: #fff; }
+.discord-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(88, 101, 242, 0.3); }
 
-button:hover { transform: scale(1.02); opacity: 0.9; }
-
-.features {
-  text-align: left; margin-top: 20px;
-  background: rgba(255,255,255,0.05);
-  padding: 12px; border-radius: 12px; font-size: 12px;
+.features-list {
+  text-align: left;
+  margin-top: 25px;
+  background: rgba(255,255,255,0.03);
+  padding: 15px;
+  border-radius: 15px;
 }
 
-.copy-counter { font-size: 11px; opacity: 0.4; margin-top: 15px; }
+.features-list div { font-size: 12px; opacity: 0.7; line-height: 1.8; }
 
+.counter-text { font-size: 11px; opacity: 0.4; margin-top: 20px; font-weight: bold; }
+
+/* TOAST */
 .toast {
   position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
-  background: #fff; color: #000; padding: 10px 25px; border-radius: 50px;
-  font-weight: bold; transition: 0.4s; opacity: 0;
+  background: #fff; color: #000; padding: 12px 30px; border-radius: 50px;
+  font-weight: 800; transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28); opacity: 0; z-index: 10;
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
@@ -122,39 +159,40 @@ button:hover { transform: scale(1.02); opacity: 0.9; }
 
 <div class="container">
   <h1>Cookie Script</h1>
-  <div class="subtitle">Premium Loader</div>
+  <div class="subtitle">Premium Scripting</div>
 
-  <div class="status-bar">
-    <span style="color:#6aff8a">● <span id="users">182</span> ONLINE</span>
-    <span style="color:var(--accent)">V2.0 STABLE</span>
+  <div class="status-pill">
+    <span style="color:#6aff8a">●</span> <span id="users">182</span> ACTIVE NOW
   </div>
 
-  <div class="script-area">
+  <div class="script-box">
     <pre id="scriptBox" class="locked">loadstring(game:HttpGet("https://raw.githubusercontent.com/luacoder312/cookiescriptshub/refs/heads/main/loader.lua"))()</pre>
-    <div id="lockIcon" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:20px;">🔒</div>
+    <div id="lockIcon" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:24px;">🔒</div>
   </div>
 
   <button id="unlockBtn" onclick="subscribeUnlock()">▶ SUBSCRIBE TO UNLOCK</button>
   
-  <button id="copyBtn" onclick="copyScript()" style="display:none;">📋 COPY SCRIPT</button>
+  <button id="copyBtn" onclick="copyScript()" style="display:none;">📋 COPY TO CLIPBOARD</button>
   
   <a href="https://discord.gg/VVzPXAG5d" target="_blank" id="discordBtn" class="discord-btn" style="display:none;">
-    <span>👾</span> JOIN DISCORD
+    <span style="margin-right:10px;">👾</span> JOIN DISCORD
   </a>
 
-  <div class="features">
-    <b style="color:var(--primary)">FEATURES:</b><br>
-    • Brainrot Duper (V2)<br>
-    • Token Multiplier<br>
-    • Stealth Trade Scam
+  <div class="features-list">
+    <div style="color:var(--primary); font-weight:800; margin-bottom:5px;">HUB FEATURES</div>
+    <div>
+      • Brainrot Duper (V2)<br>
+      • Instant Token Multiplier<br>
+      • Stealth Trade Scam V1
+    </div>
   </div>
 
-  <div class="copy-counter">
-    Total Copies: <span id="copies">5402</span>
+  <div class="counter-text">
+    GLOBAL COPIES: <span id="copies">5,402</span>
   </div>
 </div>
 
-<div id="toast" class="toast">COPIED! 🚀</div>
+<div id="toast" class="toast">SCRIPT COPIED! 🚀</div>
 
 <script>
 const scriptBox = document.getElementById("scriptBox");
@@ -164,16 +202,19 @@ const copyBtn = document.getElementById("copyBtn");
 const discordBtn = document.getElementById("discordBtn");
 const copySpan = document.getElementById("copies");
 
-// Load saved copy count or start at 5402
+// Real-time counter logic
 let currentCopies = parseInt(localStorage.getItem("totalCopies")) || 5402;
 copySpan.innerText = currentCopies.toLocaleString();
 
-if(localStorage.getItem("unlocked") === "true") { unlockContent(); }
+// Persistence Check
+if(localStorage.getItem("unlocked") === "true") { 
+  unlockContent(); 
+}
 
 function subscribeUnlock() {
   localStorage.setItem("unlocked", "true");
-  window.open("Https://youtube.com/@cookie_scripts?si=blyuvZV1utqaf4T5", "_blank");
-  // The focus event below will handle the reveal when they come back
+  // UPDATED YT LINK
+  window.open("https://www.youtube.com/@TheCookieScripts", "_blank");
 }
 
 function unlockContent() {
@@ -184,28 +225,31 @@ function unlockContent() {
   discordBtn.style.display = "flex";
 }
 
+// Auto-reveal when user returns to site
 window.addEventListener("focus", () => {
-  if(localStorage.getItem("unlocked") === "true") { unlockContent(); }
+  if(localStorage.getItem("unlocked") === "true") { 
+    unlockContent(); 
+  }
 });
 
 function copyScript() {
   navigator.clipboard.writeText(scriptBox.innerText);
   
-  // Update counter
+  // Real-time update
   currentCopies++;
   copySpan.innerText = currentCopies.toLocaleString();
   localStorage.setItem("totalCopies", currentCopies);
   
   const toast = document.getElementById("toast");
   toast.classList.add("show");
-  setTimeout(() => toast.classList.remove("show"), 2000);
+  setTimeout(() => toast.classList.remove("show"), 2500);
 }
 
-// Online user simulation
+// Online user sim
 let users = 182;
 setInterval(() => {
-  users += Math.floor(Math.random() * 3) - 1;
-  document.getElementById("users").innerText = users;
+  users += Math.floor(Math.random() * 5) - 2;
+  document.getElementById("users").innerText = Math.max(150, users);
 }, 3000);
 </script>
 
